@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <h1>IKRAM GHALA</h1>
+      <h1 className='text-9xl font-bold'>IKRAM GHALA</h1>
     </>
   )
 }
