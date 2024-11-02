@@ -1,42 +1,82 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700;800;900&family=Manrope:wght@400;600&family=Raleway:wght@600&family=Roboto:wght@100;300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+/* Roboto Font Weights */
+.font-roboto-100 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.font-roboto-300 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.font-roboto-400 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.font-roboto-500 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
 }
 
-.card {
-  padding: 2em;
+.font-roboto-600 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
 }
 
-.read-the-docs {
-  color: #888;
+.font-roboto-700 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.font-roboto-900 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+}
+
+/* Poppins Font Weights */
+.font-poppins-100 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+}
+
+.font-poppins-200 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+}
+
+.font-poppins-300 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.font-poppins-400 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.font-poppins-600 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.font-poppins-700 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.font-poppins-800 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+}
+
+.font-poppins-900 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
 }
