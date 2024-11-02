@@ -70,7 +70,7 @@ const Navbar = () => {
           </div>
           <div className='hidden md:block'>
             <div className='font-poppins-500  text-gray-600 text-xl flex items-baseline gap-10'>
-              {['Home', 'New Blog', 'Blogs', 'About', 'Contact'].map(item => (
+              {['Home', 'New Blogw', 'Blogs', 'About', 'Contact'].map(item => (
                 <a
                   key={item}
                   href={
