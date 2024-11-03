@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const links = [
+    { name: 'Home', link: '/' },
+    { name: 'New Blog', link: '/new' },
+    { name: 'Blogs', link: '/blogs' },
+    { name: 'About', link: '/about' },
+    { name: 'Contact', link: '/contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,16 +21,16 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky bg-gray-50 top-0 z-50 transition-all duration-300 ${
+      className={`sticky bg-gray-200 mx-6 rounded-3xl top-7 z-50 h-20 transition-all shadow-xl duration-300 ${
         isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-transparent'
       }`}
     >
-      <div className=' mx-auto p-8'>
-        <div className='flex items-center justify-between h-16'>
+      <div className=' mx-auto py-5 px-8'>
+        <div className='flex items-center justify-between'>
           <div className='flex-shrink-0'>
             <a href='/' className='flex items-center'>
               <svg
-                className='h-10 w-auto'
+                className='h-7 w-auto'
                 viewBox='0 0 100 40'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'
@@ -63,14 +70,14 @@ const Navbar = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <span className='ml-2 text-[29px] font-poppins-700 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-600'>
-                MyBlog
+              <span className='ml-2 text-[22px] font-poppins-700 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-600'>
+                IG.Blog
               </span>
             </a>
           </div>
           <div className='hidden md:block'>
-            <div className='font-poppins-500  text-gray-600 text-xl flex items-baseline gap-10'>
-              {['Home', 'New Blogw', 'Blogs', 'About', 'Contact'].map(item => (
+            <div className='font-poppins-500  text-gray-500 text-s flex items-baseline gap-8'>
+              {['Home', 'New Blog', 'Blogs', 'About', 'Contact'].map(item => (
                 <a
                   key={item}
                   href={
@@ -78,7 +85,7 @@ const Navbar = () => {
                       ? '/'
                       : `/${item.toLowerCase().replace(' ', '-')}`
                   }
-                  className='rounded-md p-2 hover:text-gray-900 hover:bg-gray-50'
+                  className='rounded-md p-2 hover:text-cyan-600'
                 >
                   {item}
                 </a>

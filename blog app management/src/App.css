@@ -4,7 +4,6 @@
     font-family: 'Roboto', sans-serif;
     font-family: 'Poppins', sans-serif;
 }
-/* Roboto Font Weights */
 .font-roboto-100 {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
@@ -40,7 +39,6 @@
     font-weight: 900;
 }
 
-/* Poppins Font Weights */
 .font-poppins-100 {
     font-family: 'Poppins', sans-serif;
     font-weight: 100;

@@ -9,9 +9,8 @@ function App() {
   
 
   return (
-    <div className='w-full h-screen m-0 bg-gray-300'>    
+    <div className='w-full h-screen m-0 bg-gray-100'>    
       <Navbar />
-      <Home />
     </div>
   )
 }
