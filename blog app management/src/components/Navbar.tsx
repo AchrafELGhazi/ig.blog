@@ -77,17 +77,13 @@ const Navbar = () => {
           </div>
           <div className='hidden md:block'>
             <div className='font-poppins-500  text-gray-500 text-s flex items-baseline gap-8'>
-              {['Home', 'New Blog', 'Blogs', 'About', 'Contact'].map(item => (
+              {links.map((item, index) => (
                 <a
-                  key={item}
-                  href={
-                    item === 'Home'
-                      ? '/'
-                      : `/${item.toLowerCase().replace(' ', '-')}`
-                  }
+                  key={item.name}
+                  href={item.link}
                   className='rounded-md p-2 hover:text-cyan-600'
                 >
-                  {item}
+                  {item.name}
                 </a>
               ))}
             </div>
