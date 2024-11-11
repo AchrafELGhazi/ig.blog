@@ -77,7 +77,7 @@ const Navbar = () => {
           </div>
           <div className='hidden md:block'>
             <div className='font-poppins-500  text-gray-500 text-s flex items-baseline gap-8'>
-              {links.map((item, index) => (
+              {links.map((item) => (
                 <a
                   key={item.name}
                   href={item.link}

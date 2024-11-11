@@ -52,6 +52,7 @@ function Home() {
         "In an age where users expect instant gratification, optimizing your website's performance is crucial. This blog post explores various strategies to enhance web performance, including minimizing HTTP requests, leveraging browser caching, and implementing lazy loading for images and videos. We'll dive into the latest performance APIs, discuss the impact of third-party scripts, and share best practices for optimizing CSS and JavaScript. Discover how tools like Lighthouse and WebPageTest can help you identify and fix performance bottlenecks in your web applications.",
       author: 'Lena Patel',
     },
+
   ]);
 
 
@@ -60,13 +61,13 @@ function Home() {
   return (
     <div className='bg-gray-200 min-h-screen'>
       <Navbar />
-      <div className='container  text-center -mb-10 mt-11 mx-auto px-4 py-16'>
+      {/* <div className='container  text-center -mb-10 mt-11 mx-auto px-4 py-16'>
         <h1 className='text-4xl md:text-5xl font-normal text-center text-gray-800 tracking-widest relative inline-block'>
           BLOGS
           <span className='absolute -bottom-2 left-0 w-full h-0.5 bg-gray-800 transform -skew-x-12'></span>
         </h1>
-      </div>
-      <div className='text-center'>
+      </div> */}
+      <div className='text-center mt-14'>
         {/* <button
           onClick={e => {
             handleClick('john', e);
@@ -86,7 +87,7 @@ function Home() {
         </button>
 
         <div className='text-3xl mx-20 font-bold mt-20 text-center'>{sentence}, and he is {age} years old</div> */}
-        <BlogList blogs={blogs} />
+        <BlogList blogs={blogs}/>
       </div>
     </div>
   );
