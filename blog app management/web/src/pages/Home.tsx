@@ -67,8 +67,7 @@ function Home() {
   } = useFetch('http://localhost:8000/blogs');
 
   return (
-    <div className='bg-gray-200 min-h-screen'>
-      <Navbar />
+    <div className=' min-h-screen'>
       {/* <div className='container  text-center -mb-10 mt-11 mx-auto px-4 py-16'>
         <h1 className='text-4xl md:text-5xl font-normal text-center text-gray-800 tracking-widest relative inline-block'>
           BLOGS

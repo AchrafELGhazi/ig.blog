@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const links = [
     { name: 'Home', link: '/' },
-    { name: 'New Blog', link: '/new' },
-    { name: 'Blogs', link: '/blogs' },
-    { name: 'About', link: '/about' },
-    { name: 'Contact', link: '/contact' },
+    { name: 'New Blog', link: '/NewBlogs' },
+    { name: 'Blogs', link: '/Blogs' },
+    { name: 'About', link: '/About' },
+    { name: 'Contact', link: '/Contact' },
   ];
 
   useEffect(() => {
@@ -89,13 +90,13 @@ const Navbar = () => {
           <div className='hidden md:block'>
             <div className='font-poppins-500  text-gray-500 text-s flex items-baseline gap-8'>
               {links.map(item => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.link}
+                  to={item.link}
                   className='rounded-md p-2 hover:text-cyan-600'
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
