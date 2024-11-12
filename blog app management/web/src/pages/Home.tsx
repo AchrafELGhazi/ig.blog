@@ -1,6 +1,6 @@
 import BlogList from '../components/BlogLIst';
 import Navbar from '../components/Navbar';
-import { useEffect, useState } from 'react';
+import useFetch from '../hooks/useFetch';
 
 function Home() {
   // const handleClick = (name: string, e: MouseEvent) => {
@@ -15,10 +15,11 @@ function Home() {
   //   setSentence('Achraf GREATEST SOFTWARE DEVELOPER ENGINEER');
   //   setAge(30);
   // };
-  //useState use
-  const [blogs, setBlogs] = useState(null);
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
+
+  //useState use THIS WAS MOVED TO USEFETCH() HOOK
+  // const [blogs, setBlogs] = useState(null);
+  // const [isPending, setIsPending] = useState(true);
+  // const [error, setError] = useState(null);
 
   // useEffect(() => {
   //   console.log('useEffect Hook is called');
@@ -33,31 +34,37 @@ function Home() {
   // console.log(name);
   // }, [name]); //this only gets called on the first render and when the state of name gets changed
 
-  //useEffect use
-  useEffect(() => {
-    fetch('http://localhost:8000/blogs')
-      .then(res => {
-        console.log(res);
-        if (!res.ok) {
-          setIsPending(false);
-          throw new Error('Failed to fetch blogs');
-        }
-        return res.json();
-      })
-      .then(data => {
-        setBlogs(data);
-        setIsPending(false);
-        setError(null);
-      })
-      .catch(err => {
-        setError(err.message);
-      });
-  }, []);
+  //useEffect use THIS WAS MOVED TO USEFETCH() HOOK
+  // useEffect(() => {
+  //   fetch('http://localhost:8000/blogs')
+  //     .then(res => {
+  //       console.log(res);
+  //       if (!res.ok) {
+  //         setIsPending(false);
+  //         throw new Error('Failed to fetch blogs');
+  //       }
+  //       return res.json();
+  //     })
+  //     .then(data => {
+  //       setBlogs(data);
+  //       setIsPending(false);
+  //       setError(null);
+  //     })
+  //     .catch(err => {
+  //       setError(err.message);
+  //     });
+  // }, []);
 
   // const handleDelete = (id: number) => {
   //   const newBlogs = blogs.filter(blog => blog.id !== id);
   //   setBlogs(newBlogs);
   // }; //example of delete button
+
+  const {
+    data: blogs,
+    isPending,
+    error,
+  } = useFetch('http://localhost:8000/blogs');
 
   return (
     <div className='bg-gray-200 min-h-screen'>
