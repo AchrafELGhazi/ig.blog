@@ -67,14 +67,16 @@ function Home() {
   } = useFetch('http://localhost:8000/blogs');
 
   return (
-    <div className=' min-h-screen'>
+    <div className='bg-gray-200 h-full'>
       {/* <div className='container  text-center -mb-10 mt-11 mx-auto px-4 py-16'>
         <h1 className='text-4xl md:text-5xl font-normal text-center text-gray-800 tracking-widest relative inline-block'>
           BLOGS
           <span className='absolute -bottom-2 left-0 w-full h-0.5 bg-gray-800 transform -skew-x-12'></span>
         </h1>
       </div> */}
-      <div className='text-center mt-14'>
+      <div className='text-center'>
+        <Navbar />
+
         {/* <button
           onClick={e => {
             handleClick('john', e);

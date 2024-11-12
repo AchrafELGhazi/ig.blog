@@ -24,7 +24,7 @@ const Navbar = () => {
     <nav
       className={`
     //  Static CSS classes applied always
-    sticky bg-gray-200 mx-6 rounded-3xl top-7 z-50 h-20 transition-all shadow-xl duration-300 
+    sticky bg-gray-200 mx-20 rounded-3xl top-7 z-50 h-20 transition-all shadow-xl duration-300 
     
     // Template literal syntax to embed dynamic content
     ${
@@ -40,7 +40,7 @@ const Navbar = () => {
       <div className=' mx-auto py-5 px-8'>
         <div className='flex items-center justify-between'>
           <div className='flex-shrink-0'>
-            <a href='/' className='flex items-center'>
+            <Link to='/' className='flex items-center'>
               <svg
                 className='h-7 w-auto'
                 viewBox='0 0 100 40'
@@ -85,7 +85,7 @@ const Navbar = () => {
               <span className='ml-2 text-[22px] font-poppins-700 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-600'>
                 IG.Blog
               </span>
-            </a>
+            </Link>
           </div>
           <div className='hidden md:block'>
             <div className='font-poppins-500  text-gray-500 text-s flex items-baseline gap-8'>

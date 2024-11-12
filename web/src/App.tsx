@@ -1,5 +1,4 @@
 import './App.css';
-import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import Contact from './pages/Contact';
@@ -13,7 +12,6 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        <Navbar />
         <div className='content'>
           <Routes>
             <Route path='/' element={<Home />} />
