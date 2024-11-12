@@ -1,4 +1,5 @@
 import BlogCard from "./BLogCard";
+import { useState } from 'react';
 
 // interface Blog {
 //   id: number;
@@ -23,9 +24,17 @@ interface BlogListProps {
   }[];
   // handleDelete: (id: number) => void;
 }
-const BlogList =({blogs}: BlogListProps ) =>{
+const BlogList = ({ blogs: initialBlogs }: BlogListProps) => {
   // const blogs = props.blogs;
+    const [blogs, setBlogs] = useState(initialBlogs);
 
+  const handleDelete = (id: number) => {
+    fetch(`http://localhost:8500/blogs/${id}`, {
+      method: 'DELETE',
+    }).then(() => {
+      setBlogs(blogs.filter(blog => blog.id !== id));
+    });
+  };
   return (
     <div className='container mx-auto px-4 py-12 '>
       <div className='flex flex-wrap -mx-4'>
@@ -71,7 +80,7 @@ const BlogList =({blogs}: BlogListProps ) =>{
           //     </div>
           //   </article>
           // </div>
-          <BlogCard blog={blog} key={blog.id}/>
+          <BlogCard blog={blog} handleDelete={handleDelete} key={blog.id} />
         ))}
       </div>
     </div>

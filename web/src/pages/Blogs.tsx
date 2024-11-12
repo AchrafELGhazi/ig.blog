@@ -1,6 +1,10 @@
+import Navbar from "../components/Navbar";
+
 const Blogs = () => {
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
+      <Navbar />
+
       <h1>Our Blogs</h1>
       <p>
         Welcome to our Blogs section! Here you can explore a variety of articles

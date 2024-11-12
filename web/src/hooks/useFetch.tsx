@@ -4,8 +4,13 @@ const useFetch = (url: string) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+
+  //need to do an abortController so that the fetching is not done when on another page;
+
   useEffect(() => {
-    fetch(url)
+    const abortCont = new AbortController();
+
+    fetch(url, { signal: abortCont.signal })
       .then(res => {
         console.log(res);
         if (!res.ok) {
@@ -20,9 +25,14 @@ const useFetch = (url: string) => {
         setError(null);
       })
       .catch(err => {
-        setError(err.message);
-        setIsPending(false);
+        if (err.name === 'AbortError') {
+          console.log('fetch aborted');
+        } else {
+          setIsPending(false);
+          setError(err.message);
+        }
       });
+    return () => abortCont.abort();
   }, [url]);
 
   return { data, isPending, error };

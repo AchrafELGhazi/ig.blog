@@ -64,7 +64,7 @@ function Home() {
     data: blogs,
     isPending,
     error,
-  } = useFetch('http://localhost:8000/blogs');
+  } = useFetch('http://localhost:8500/blogs');
 
   return (
     <div className='bg-gray-200 h-full'>

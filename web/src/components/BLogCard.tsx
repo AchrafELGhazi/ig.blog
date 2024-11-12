@@ -1,4 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // interface Blog {
 //   id: number;
@@ -19,10 +21,20 @@ interface BlogCardProps {
     content: string;
     author: string;
   };
-// handleDelete: (id: number) => void;
+   handleDelete: (id: number) => void;
 }
 
-const BlogCard = ({ blog }: BlogCardProps) => {
+const BlogCard = ({ blog, handleDelete }: BlogCardProps) => {
+  const navigate = useNavigate();
+  const handleDeleteClick = () => {
+    fetch(`http://localhost:8500/blogs/${blog.id}`, {
+      method: 'DELETE',
+    }).then(() => {
+      console.log('Blog deleted');
+      handleDelete(blog.id);
+      navigate('/');
+    });
+  };
   return (
     <div key={blog.id} className=' sm:w-1/2 lg:w-1/3 px-4 mb-8'>
       <article className='flex flex-col h-full bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg border border-gray-100'>
@@ -44,27 +56,32 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             </p>
           </div>
           <footer className='mt-auto pt-4 border-t flex justify-between border-gray-100'>
-            <button className='text-blue-500 hover:text-blue-700 transition-colors duration-300 text-sm font-semibold flex items-center'>
-              Read more
-              <svg
-                className='w-4 h-4 ml-1'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M9 5l7 7-7 7'
-                />
-              </svg>
-            </button>
-            {/* <button className='flex items-center text-red-600 hover:text-red-700 hover:bg-red-100 px-4 py-2 rounded-md transition ease-in-out duration-200' onClick={()=>handleDelete(blog.id)}>
+            <Link to={`/BlogDetails/${blog.id}`}>
+              <button className='text-blue-500 hover:text-blue-700 transition-colors duration-300 text-sm font-semibold flex items-center'>
+                Read more
+                <svg
+                  className='w-4 h-4 ml-1'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M9 5l7 7-7 7'
+                  />
+                </svg>
+              </button>
+            </Link>
+            <button
+              className='flex items-center text-red-600 hover:text-red-700 hover:bg-red-100 px-4 py-2 rounded-md transition ease-in-out duration-200'
+              onClick={handleDeleteClick}
+            >
               <TrashIcon className='h-5 w-5 mr-2' />
               Delete
-            </button> */}
+            </button>
           </footer>
         </div>
       </article>

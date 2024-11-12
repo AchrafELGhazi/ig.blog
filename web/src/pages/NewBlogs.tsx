@@ -1,22 +1,107 @@
+import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
+
 const NewBlogs = () => {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [author, setAuthor] = useState('messi');
+  const [isPending, setIsPending] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const blog = { title, body, author };
+    setIsPending(true);
+    console.log(blog);
+    fetch('http://localhost:8500/blogs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(blog),
+    }).then(() => {
+      console.log('new blog added');
+      setIsPending(false);
+      navigate('/');
+    });
+  };
+
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: 'auto' }}>
-      <h1>New Blogs</h1>
-      <p>
-        Welcome to our New Blogs section! Here, you will find the latest
-        articles and insights on various topics that matter to you. Our team of
-        writers is dedicated to bringing you fresh content that is both
-        informative and engaging.
-      </p>
-      <p>
-        Stay tuned for updates, tips, and stories that inspire. Whether you are
-        looking for advice, industry news, or just some interesting reads, we
-        have something for everyone.
-      </p>
-      <p>
-        Don't forget to subscribe to our newsletter to receive the latest blog
-        posts directly in your inbox!
-      </p>
+    <div>
+      <Navbar />
+      <div className='min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4'>
+        <div className='w-full max-w-md bg-white rounded-2xl shadow-lg p-8 transition-all duration-300 ease-in-out transform hover:scale-[1.02]'>
+          <h1 className='text-3xl font-bold text-center text-gray-800 mb-6'>
+            Create a New Blog
+          </h1>
+          <form onSubmit={handleSubmit} className='space-y-6'>
+            <div>
+              <label
+                htmlFor='title'
+                className='block text-sm font-medium text-gray-700 mb-1'
+              >
+                Blog Title
+              </label>
+              <input
+                id='title'
+                type='text'
+                required
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 ease-in-out'
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor='author'
+                className='block text-sm font-medium text-gray-700 mb-1'
+              >
+                Blog Author
+              </label>
+              <select
+                id='author'
+                required
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 ease-in-out'
+                value={author}
+                onChange={e => setAuthor(e.target.value)}
+              >
+                <option value=''>Select an author</option>
+                <option value='mario'>Mario</option>
+                <option value='messi'>Messi</option>
+                <option value='leo'>Leo</option>
+                <option value='hel'>Hel</option>
+                <option value='anas'>Anas</option>
+                <option value='med'>Med</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor='body'
+                className='block text-sm font-medium text-gray-700 mb-1'
+              >
+                Blog Content
+              </label>
+              <textarea
+                id='body'
+                required
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 ease-in-out'
+                rows={4}
+                value={body}
+                onChange={e => setBody(e.target.value)}
+              ></textarea>
+            </div>
+            <button
+              className={`w-full py-2 px-4 rounded-md transition-all duration-150 ease-in-out ${
+                isPending
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'
+              } text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              disabled={isPending}
+            >
+              {isPending ? 'Adding blog...' : 'Add Blog'}
+            </button>
+          </form>
+        </div>
+      </div>{' '}
     </div>
   );
 };

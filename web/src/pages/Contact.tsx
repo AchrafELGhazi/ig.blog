@@ -1,6 +1,10 @@
+import Navbar from "../components/Navbar";
+
 const Contact = () => {
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
+      <Navbar />
+
       <h1>Contact Us</h1>
       <p>
         We would love to hear from you! If you have any questions, comments, or
