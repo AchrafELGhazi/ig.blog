@@ -1,109 +1,136 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const links = [
     { name: 'Home', link: '/' },
     { name: 'New Blog', link: '/NewBlogs' },
     { name: 'Blogs', link: '/Blogs' },
     { name: 'About', link: '/About' },
     { name: 'Contact', link: '/Contact' },
-  ];
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+      setIsScrolled(window.scrollY > 10)
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <nav
-      className={`
-    //  Static CSS classes applied always
-    sticky bg-gray-200 mx-20 rounded-3xl top-7 z-50 h-20 transition-all shadow-xl duration-300 
-    
-    // Template literal syntax to embed dynamic content
-    ${
-      // Conditional logic based on the 'isScrolled' state
-      isScrolled
-        ? // If 'isScrolled' is true, apply the following classes
-          'bg-white/80 backdrop-blur-md shadow-md'
-        : // If 'isScrolled' is false, apply this class instead
-          'bg-transparent'
-    }
-  `}
-    >
-      <div className=' mx-auto py-5 px-8'>
-        <div className='flex items-center justify-between'>
-          <div className='flex-shrink-0'>
-            <Link to='/' className='flex items-center'>
+  className={`sticky top-7 z-50 mx-96 h-20 rounded-3xl bg-white shadow-xl transition-all duration-300 ${
+    isScrolled ? 'shadow-md backdrop-blur-md' : ''
+  }`}
+>
+      <div className="mx-auto px-8 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex-shrink-0">
+            <Link to="/" className="flex items-center">
               <svg
-                className='h-7 w-auto'
-                viewBox='0 0 100 40'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
+                className="h-7 w-auto"
+                viewBox="0 0 100 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d='M10 30L30 10M30 10V25M30 10H15'
-                  stroke='url(#gradient)'
-                  strokeWidth='4'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  d="M10 30L30 10M30 10V25M30 10H15"
+                  stroke="url(#gradient)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
-                  d='M40 10L60 30M60 30H45M60 30V15'
-                  stroke='url(#gradient)'
-                  strokeWidth='4'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  d="M40 10L60 30M60 30H45M60 30V15"
+                  stroke="url(#gradient)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
-                  d='M70 10V30M70 20H90M90 10V30'
-                  stroke='url(#gradient)'
-                  strokeWidth='4'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  d="M70 10V30M70 20H90M90 10V30"
+                  stroke="url(#gradient)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <defs>
                   <linearGradient
-                    id='gradient'
-                    x1='0'
-                    y1='0'
-                    x2='100'
-                    y2='40'
-                    gradientUnits='userSpaceOnUse'
+                    id="gradient"
+                    x1="0"
+                    y1="0"
+                    x2="100"
+                    y2="40"
+                    gradientUnits="userSpaceOnUse"
                   >
-                    <stop stopColor='#4F46E5' />
-                    <stop offset='1' stopColor='#06B6D4' />
+                    <stop stopColor="#4F46E5" />
+                    <stop offset="1" stopColor="#06B6D4" />
                   </linearGradient>
                 </defs>
               </svg>
-              <span className='ml-2 text-[22px] font-poppins-700 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-600'>
+              <span className="ml-2 text-[22px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-600">
                 IG.Blog
               </span>
             </Link>
           </div>
-          <div className='hidden md:block'>
-            <div className='font-poppins-500  text-gray-500 text-s flex items-baseline gap-8'>
-              {links.map(item => (
+          <div className="md:hidden flex items-center">
+          <button
+            className="text-gray-600 hover:text-gray-900"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+          <div className="hidden md:flex justify-center flex-1">
+            <div className="flex items-center gap-2">
+              {links.map((item) => (
                 <Link
                   key={item.name}
                   to={item.link}
-                  className='rounded-md p-2 hover:text-cyan-600'
+                  className="group relative flex h-12 w-24 items-center justify-center rounded-full bg-gray-100/80 text-sm font-medium text-gray-600 transition-all duration-300 hover:-translate-y-1 hover:bg-gray-100 hover:text-gray-900"
                 >
                   {item.name}
                 </Link>
               ))}
             </div>
           </div>
+          <div className="w-24" aria-hidden="true" />
         </div>
       </div>
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-20 left-0 w-full bg-white p-6 rounded-xl shadow-lg">
+          <div className="flex flex-col w-full items-center">
+            {links.map((item) => (
+              <Link
+                key={item.name}
+                to={item.link}
+                className="py-3 text-gray-600 text-lg w-full font-medium hover:text-gray-900"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
-  );
-};
-
-export default Navbar;
+  )
+}
