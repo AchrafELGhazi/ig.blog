@@ -128,7 +128,7 @@ export default function About() {
           <p>© {currentYear} IG.Blog Manager. All rights reserved.</p>
           <p className="mt-2">
             Crafted with <span className="text-red-500">♥</span> by Achraf EL
-            GHAZI in Casablanca, Morocco
+            GHAZI in Ifrane, Morocco
           </p>
         </footer>
       </motion.div>

@@ -17,10 +17,11 @@ import { useState } from 'react';
 //OR THIS WAY
 interface BlogListProps {
   blogs: {
-    id: number;
+     id: number; 
     title: string;
     content: string;
     author: string;
+    createdAt: string | null;
   }[];
   // handleDelete: (id: number) => void;
 }
@@ -29,7 +30,7 @@ const BlogList = ({ blogs: initialBlogs }: BlogListProps) => {
     const [blogs, setBlogs] = useState(initialBlogs);
 
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:8500/blogs/${id}`, {
+    fetch(`http://localhost:8000/blogs/${id}`, {
       method: 'DELETE',
     }).then(() => {
       setBlogs(blogs.filter(blog => blog.id !== id));

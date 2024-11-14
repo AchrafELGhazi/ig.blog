@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const NewBlogs = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [author, setAuthor] = useState('messi');
+  const [author, setAuthor] = useState('');
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
@@ -48,6 +48,8 @@ const NewBlogs = () => {
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 ease-in-out'
                 value={title}
                 onChange={e => setTitle(e.target.value)}
+                placeholder='Enter blog name'
+
               />
             </div>
             <div>
@@ -57,21 +59,15 @@ const NewBlogs = () => {
               >
                 Blog Author
               </label>
-              <select
+              <input
                 id='author'
+                type='text'
                 required
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 ease-in-out'
                 value={author}
                 onChange={e => setAuthor(e.target.value)}
-              >
-                <option value=''>Select an author</option>
-                <option value='mario'>Mario</option>
-                <option value='messi'>Messi</option>
-                <option value='leo'>Leo</option>
-                <option value='hel'>Hel</option>
-                <option value='anas'>Anas</option>
-                <option value='med'>Med</option>
-              </select>
+                placeholder='Enter author name'
+              />
             </div>
             <div>
               <label
@@ -87,6 +83,8 @@ const NewBlogs = () => {
                 rows={4}
                 value={body}
                 onChange={e => setBody(e.target.value)}
+                placeholder='Enter content'
+
               ></textarea>
             </div>
             <button

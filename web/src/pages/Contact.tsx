@@ -30,7 +30,7 @@ function Contact() {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit us",
-      description: "Casablanca, Morocco",
+      description: "Ifrane, Morocco",
       action: "Get directions",
     },
   ];

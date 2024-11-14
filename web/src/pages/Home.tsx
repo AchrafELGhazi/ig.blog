@@ -64,10 +64,10 @@ function Home() {
     data: blogs,
     isPending,
     error,
-  } = useFetch('http://localhost:8500/blogs');
+  } = useFetch('http://localhost:8000/blogs');
 
   return (
-    <div className='bg-gray-200 h-full'>
+    <div className='bg-gray-100 p h-full'>
       {/* <div className='container  text-center -mb-10 mt-11 mx-auto px-4 py-16'>
         <h1 className='text-4xl md:text-5xl font-normal text-center text-gray-800 tracking-widest relative inline-block'>
           BLOGS
@@ -95,9 +95,12 @@ function Home() {
         </button>
 
         <div className='text-3xl mx-20 font-bold mt-20 text-center'>{sentence}, and he is {age} years old</div> */}
+        <div className='pt-16'>
         {error && <div>{error}</div>}
         {isPending && <div>loading...</div>}
         {blogs && <BlogList blogs={blogs} />}
+        </div>
+        
         {/* <BlogList blogs={blogs.filter((blog)=> blog.author ==='Michael Thompson')} /> filter method example */}
       </div>
     </div>
