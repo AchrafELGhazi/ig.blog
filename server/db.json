@@ -23,12 +23,6 @@
       "title": "Accessibility in Web Design: Ensuring Inclusive User Experiences",
       "content": "Creating accessible websites is not just a legal requirement in many countries, it's a moral imperative. This comprehensive guide covers the key principles of web accessibility, including keyboard navigation, screen reader compatibility, and color contrast. We'll discuss the Web Content Accessibility Guidelines (WCAG) and provide practical tips for implementing accessibility features in your web projects. Learn how to conduct accessibility audits and the tools that can help you create more inclusive digital experiences for all users.",
       "author": "Michael Thompson"
-    },
-    {
-      "id": "5",
-      "title": "Optimizing Web Performance: Strategies for Faster Load Times",
-      "content": "In an age where users expect instant gratification, optimizing your website's performance is crucial. This blog post explores various strategies to enhance web performance, including minimizing HTTP requests, leveraging browser caching, and implementing lazy loading for images and videos. We'll dive into the latest performance APIs, discuss the impact of third-party scripts, and share best practices for optimizing CSS and JavaScript. Discover how tools like Lighthouse and WebPageTest can help you identify and fix performance bottlenecks in your web applications.",
-      "author": "Lena Patel"
     }
   ]
 }
