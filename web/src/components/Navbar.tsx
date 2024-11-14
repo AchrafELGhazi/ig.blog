@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <nav
-  className={`sticky top-7 z-50 mx-96 h-20 rounded-3xl bg-white shadow-xl transition-all duration-300 ${
+  className={`sticky top-7 z-50 mx-[15%] h-20 rounded-3xl bg-white shadow-xl transition-all duration-300 ${
     isScrolled ? 'shadow-md backdrop-blur-md' : ''
   }`}
 >
