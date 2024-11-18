@@ -66,6 +66,31 @@ function Home() {
     error,
   } = useFetch('http://localhost:8000/blogs');
 
+  // Event handler functions
+  // const handleMouseEnter = () => {
+  //   console.log('Mouse entered!');
+  // };
+
+  // const handleMouseLeave = () => {
+  //   console.log('Mouse left!');
+  // };
+
+  // const handleClick = () => {
+  //   console.log('Div clicked!');
+  // };
+
+  // const handleMouseDown = () => {
+  //   console.log('Mouse button pressed!');
+  // };
+
+  // const handleMouseUp = () => {
+  //   console.log('Mouse button released!');
+  // };
+
+  // const handleMouseMove = e => {
+  //   console.log(`Mouse moved! X: ${e.clientX}, Y: ${e.clientY}`);
+  // };
+
   return (
     <div className='bg-gray-100 p h-full'>
       {/* <div className='container  text-center -mb-10 mt-11 mx-auto px-4 py-16'>
@@ -96,13 +121,31 @@ function Home() {
 
         <div className='text-3xl mx-20 font-bold mt-20 text-center'>{sentence}, and he is {age} years old</div> */}
         <div className='pt-16'>
-        {error && <div>{error}</div>}
-        {isPending && <div>loading...</div>}
-        {blogs && <BlogList blogs={blogs} />}
+          {error && <div>{error}</div>}
+          {isPending && <div>loading...</div>}
+          {blogs && <BlogList blogs={blogs} />}
         </div>
-        
+
         {/* <BlogList blogs={blogs.filter((blog)=> blog.author ==='Michael Thompson')} /> filter method example */}
       </div>
+
+      {/* <div
+        className='text-center text-white text-2xl font-bold mt-20 border w-6/12 bg-black'
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        // onMouseEnter: Triggered when the mouse enters the element.
+        // onMouseLeave: Triggered when the mouse leaves the element.
+        // onClick: Triggered when the element is clicked.
+        // onMouseDown: Triggered when the mouse button is pressed down on the element.
+        // onMouseUp: Triggered when the mouse button is released on the element.
+        // onMouseMove: Triggered when the mouse is moved over the element.
+      >
+        hello
+      </div> */}
     </div>
   );
 }

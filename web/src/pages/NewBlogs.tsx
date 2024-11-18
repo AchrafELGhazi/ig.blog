@@ -14,7 +14,7 @@ const NewBlogs = () => {
     const blog = { title, body, author };
     setIsPending(true);
     console.log(blog);
-    fetch('http://localhost:8500/blogs', {
+    fetch('http://localhost:8000/blogs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(blog),
