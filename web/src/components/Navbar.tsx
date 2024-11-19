@@ -11,6 +11,7 @@ export default function Navbar() {
     { name: 'Blogs', link: '/Blogs' },
     { name: 'About', link: '/About' },
     { name: 'Contact', link: '/Contact' },
+    { name: 'Login', link: '/Login' },
   ]
 
   useEffect(() => {

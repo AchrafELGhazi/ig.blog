@@ -3,5 +3,13 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "types": ["vite", "react", "react-dom"],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@shadcn/*": ["node_modules/@shadcn/ui/*"]
+    }
+  }
 }

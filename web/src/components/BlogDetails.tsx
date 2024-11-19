@@ -2,15 +2,21 @@ import { useParams } from 'react-router';
 import useFetch from '../hooks/useFetch';
 import Navbar from './Navbar';
 
+interface Blog {
+  id: number;
+  title: string;
+  content: string;
+  author: string;
+  createdAt: string | null;
+}
+
 
 const BlogDetails = () => {
   const { BlogId } = useParams();
-  const {
-    data: blog,
-    isPending,
-    error,
-  } = useFetch('http://localhost:8000/blogs/' + BlogId);
-
+  const { data, isPending, error } = useFetch(
+    `http://localhost:8000/blogs/${BlogId}`
+  );
+  const blog = data as Blog | null;
   return (
     <div>
       <Navbar />
@@ -23,7 +29,6 @@ const BlogDetails = () => {
           <h4 className='text-lg font-semibold mb-4'>{blog.author}</h4>
           <p className='text-gray-600'>{blog.content}</p>
           <p className='text-gray-600'>{blog.createdAt}</p>
-
         </div>
       )}
     </div>
