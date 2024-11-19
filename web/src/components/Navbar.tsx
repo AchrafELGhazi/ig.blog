@@ -106,7 +106,7 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   to={item.link}
-                  className="group relative flex h-12 w-24 items-center justify-center rounded-full bg-gray-100/80 text-sm font-medium text-gray-600 transition-all duration-300 hover:-translate-y-1 hover:bg-gray-100 hover:text-gray-900"
+                  className="group relative flex h-12 w-24 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-600 transition-all duration-300 hover:-translate-y-1 hover:bg-gray-100 hover:text-gray-900"
                 >
                   {item.name}
                 </Link>
