@@ -11,7 +11,7 @@ const NewBlogs = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const blog = { title, body, author };
+    const blog = { title, body, author, createdAt: new Date().toISOString() };
     setIsPending(true);
     console.log(blog);
     fetch('http://localhost:8000/blogs', {
