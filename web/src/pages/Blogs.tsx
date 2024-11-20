@@ -7,7 +7,7 @@ const Blogs = () => {
     data: blogs,
     error: blogError,
     isPending: blogIsPending,
-  } = useFetch('http://localhost:8000/blogs');
+  } = useFetch('http://localhost:8500/blogs');
 
   return (
     <div className='bg-gray-100  h-full'>

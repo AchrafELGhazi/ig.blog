@@ -22,7 +22,7 @@ const BlogCard = ({ blog, handleDelete }: BlogCardProps) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
-    fetch(`http://localhost:8000/blogs/${blog.id}`, {
+    fetch(`http://localhost:8500/blogs/${blog.id}`, {
       method: 'DELETE',
     }).then(() => {
       console.log('Blog deleted');

@@ -14,7 +14,7 @@ const NewBlogs = () => {
     const blog = { title, body, author, createdAt: new Date().toISOString() };
     setIsPending(true);
     console.log(blog);
-    fetch('http://localhost:8000/blogs', {
+    fetch('http://localhost:8500/blogs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(blog),
@@ -49,7 +49,6 @@ const NewBlogs = () => {
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 placeholder='Enter blog name'
-
               />
             </div>
             <div>
@@ -84,7 +83,6 @@ const NewBlogs = () => {
                 value={body}
                 onChange={e => setBody(e.target.value)}
                 placeholder='Enter content'
-
               ></textarea>
             </div>
             <button

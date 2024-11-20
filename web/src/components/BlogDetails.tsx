@@ -26,7 +26,7 @@ export default function BlogDetails({ isOpen, onClose, id }: ModalProps) {
     if (isOpen) {
       const fetchBlog = async () => {
         try {
-          const response = await fetch(`http://localhost:8000/blogs/${id}`)
+          const response = await fetch(`http://localhost:8500/blogs/${id}`)
           if (!response.ok) {
             throw new Error('Failed to fetch blog data')
           }

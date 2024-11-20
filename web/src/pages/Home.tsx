@@ -36,7 +36,7 @@ function Home() {
 
   //useEffect use THIS WAS MOVED TO USEFETCH() HOOK
   // useEffect(() => {
-  //   fetch('http://localhost:8000/blogs')
+  //   fetch('http://localhost:8500/blogs')
   //     .then(res => {
   //       console.log(res);
   //       if (!res.ok) {
@@ -64,7 +64,7 @@ function Home() {
     data: blogs,
     isPending,
     error,
-  } = useFetch('http://localhost:8000/blogs');
+  } = useFetch('http://localhost:8500/blogs');
 
   // Event handler functions
   // const handleMouseEnter = () => {
