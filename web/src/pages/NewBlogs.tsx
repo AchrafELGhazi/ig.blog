@@ -85,6 +85,8 @@ const NewBlogs = () => {
                 placeholder='Enter content'
               ></textarea>
             </div>
+
+            
             <button
               className={`w-full py-2 px-4 rounded-md transition-all duration-150 ease-in-out ${
                 isPending
