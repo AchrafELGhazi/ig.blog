@@ -15,10 +15,10 @@ import Navbar from "../components/Navbar";
 function Contact() {
   const [isMessageSent, setIsMessageSent] = useState(false);
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(e.currentTarget);
 
     formData.append("access_key", "8e608923-e7e2-495a-97c8-093d6fd17840");
 
@@ -31,7 +31,7 @@ function Contact() {
 
     if (data.success) {
       setIsMessageSent(true);
-      event.currentTarget.reset();
+      e.currentTarget.reset();
     } else {
       console.log("Error", data);
       setIsMessageSent(false);
@@ -170,7 +170,7 @@ function Contact() {
                 <Send className="ml-2 w-5 h-5" />
               </motion.button>{" "}
               <AnimatePresence>
-                {!isMessageSent && (
+                {isMessageSent && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
