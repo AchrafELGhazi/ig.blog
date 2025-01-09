@@ -5,6 +5,7 @@ import Contact from './pages/Contact';
 import NewBlogs from './pages/NewBlogs';
 import About from './pages/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path='/Contact' element={<Contact />} />
             <Route path='/NewBlogs' element={<NewBlogs />} />
             <Route path='/About' element={<About />} />
+            <Route path='/Login' element={<Login />} />
           </Routes>
         </div>
       </div>
