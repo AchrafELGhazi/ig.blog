@@ -1,5 +1,4 @@
 import BlogList from '../components/BlogLIst';
-import Navbar from '../components/Navbar';
 import useFetch from '../hooks/useFetch';
 
 function Home() {
@@ -100,7 +99,6 @@ function Home() {
         </h1>
       </div> */}
       <div className='text-center'>
-        <Navbar />
 
         {/* <button
           onClick={e => {

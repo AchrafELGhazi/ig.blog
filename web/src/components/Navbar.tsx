@@ -1,33 +1,66 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { UserContext } from '@/utils/UserContext';
+import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const links = [
-    { name: 'Home', link: '/' },
-    { name: 'New Blog', link: '/NewBlogs' },
-    { name: 'Blogs', link: '/Blogs' },
-    { name: 'About', link: '/About' },
-    { name: 'Contact', link: '/Contact' },
-    { name: 'Login', link: '/Login' },
-  ]
+  const { setUserInfo, userInfo } = useContext(UserContext);
+  const username = userInfo?.username;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
+    fetch('http://localhost:3000/profile', {
+      credentials: 'include',
+    }).then(response => {
+      response.json().then(userInfo => {
+        setUserInfo(userInfo);
+      });
+    });
+  }, []);
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const logout = () => {
+    fetch('http://localhost:3000/logout', {
+      credentials: 'include',
+      method: 'POST',
+    });
+    setUserInfo({});
+  };
+  // Replace the static links array with a computed one
+  const getLinks = () => {
+    const baseLinks = [
+      { name: 'Home', link: '/' },
+      { name: 'Blogs', link: '/Blogs' },
+      { name: 'About', link: '/About' },
+      { name: 'Contact', link: '/Contact' },
+    ];
+
+    if (username) {
+      return [...baseLinks, { name: 'Profile', link: '/profile' }];
+    } else {
+      return [
+        ...baseLinks,
+        { name: 'Login', link: '/Login' },
+        { name: 'Register', link: '/Register' },
+      ];
+    }
+  };
+
+  // Replace the static links declaration with:
+  const links = getLinks();
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <nav
       className={`sticky top-7 z-50 mx-[15%] h-20 rounded-3xl transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/20 backdrop-blur-md   shadow-lg'
+          ? 'bg-white/20 backdrop-blur-md shadow-lg'
           : 'bg-white shadow-xl'
       }`}
     >
@@ -113,9 +146,26 @@ export default function Navbar() {
                   {item.name}
                 </Link>
               ))}
+              {username && (
+                <>
+                  <Link
+                    to='/NewBlogs'
+                    className='group relative flex h-12 w-24 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-600 transition-all duration-300 hover:-translate-y-1 hover:bg-gray-100 hover:text-gray-900'
+                  >
+                    New Blog
+                  </Link>
+                  <a
+                    onClick={logout}
+                    className='group relative flex h-12 w-24 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-600 transition-all duration-300 hover:-translate-y-1 hover:bg-gray-100 hover:text-gray-900 cursor-pointer'
+                  >
+                    Logout
+                  </a>
+                </>
+              )}
             </div>
           </div>
           <div className='w-24' aria-hidden='true' />
+          {username && <div>{username}</div>}
         </div>
       </div>
       {isMenuOpen && (
@@ -131,6 +181,23 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {username && (
+              <>
+                <Link
+                  to='/NewBlogs'
+                  className='py-3 text-gray-600 text-lg w-full font-medium hover:text-gray-900'
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  New Blog
+                </Link>
+                <a
+                  onClick={logout}
+                  className='py-3 text-gray-600 text-lg w-full font-medium hover:text-gray-900 cursor-pointer'
+                >
+                  Logout
+                </a>
+              </>
+            )}
           </div>
         </div>
       )}

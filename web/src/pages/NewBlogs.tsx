@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
 const NewBlogs = () => {
@@ -36,7 +35,6 @@ const NewBlogs = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 transition-all duration-300 ease-in-out transform hover:scale-[1.02]">
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">

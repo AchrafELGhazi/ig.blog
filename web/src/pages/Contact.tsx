@@ -10,7 +10,6 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import Navbar from "../components/Navbar";
 
 function Contact() {
   const [isMessageSent, setIsMessageSent] = useState(false);
@@ -60,7 +59,6 @@ function Contact() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200">
-      <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

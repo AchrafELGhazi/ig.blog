@@ -6,25 +6,33 @@ import NewBlogs from './pages/NewBlogs';
 import About from './pages/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
-
+import Register from './pages/Register';
+import Navbar from './components/Navbar';
+import { UserContextProvider } from './utils/UserContext';
+import Profile from './pages/profile';
 
 function App() {
   return (
-    <Router>
-      <div className='App'>
-        <div className='content'>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/Blogs' element={<Blogs />} />
-            <Route path='/Contact' element={<Contact />} />
-            <Route path='/NewBlogs' element={<NewBlogs />} />
-            <Route path='/About' element={<About />} />
-            <Route path='/Login' element={<Login />} />
-          </Routes>
+    <UserContextProvider>
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <div className='content'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/Blogs' element={<Blogs />} />
+              <Route path='/Contact' element={<Contact />} />
+              <Route path='/NewBlogs' element={<NewBlogs />} />
+              <Route path='/About' element={<About />} />
+              <Route path='/Login' element={<Login />} />
+              <Route path='/Register' element={<Register />} />
+              <Route path='/Profile' element={<Profile/>} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </UserContextProvider>
   );
 }
- 
+
 export default App;
