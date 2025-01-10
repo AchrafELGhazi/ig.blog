@@ -1,11 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
+require('dotenv').config();
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+
+
+const app = express();
+
 
 // for password encryption using bcrypt
 const salt = bcrypt.genSaltSync(10);
@@ -16,9 +20,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect(
-  'mongodb+srv://achraf:ACIen1.2021k@igblog.m5vpz.mongodb.net/igblog?retryWrites=true&w=majority&appName=igblog'
-);
+mongoose.connect(process.env.MONGODB_URI);
 
 // JWT verification middleware
 function verifyToken(req, res, next) {

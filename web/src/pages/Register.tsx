@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -8,6 +9,7 @@ const Register = () => {
   const [preferences, setPreferences] = useState<string[]>([]);
   const [registerFailed, setRegisterFailed] = useState(false);
   const [registerSuccessful, setRegisterSuccessful] = useState(false);
+  const navigate = useNavigate();
 
   const register = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ const Register = () => {
       setRegisterFailed(true);
     } else if (response.ok) {
       setRegisterSuccessful(true);
+      navigate('/login');
     }
   };
 

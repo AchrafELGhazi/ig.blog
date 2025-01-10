@@ -7,6 +7,7 @@ interface UserInfo {
   email?: string;
   bio?: string;
   preferences?: string[];
+  img?: string;
 }
 
 // Define the structure of our context data
