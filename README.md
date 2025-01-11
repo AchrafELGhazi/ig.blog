@@ -1,11 +1,11 @@
-# Blog Application
+# IG.Blog: Blog Application
 
 A modern blog application built with the MERN stack (MongoDB, Express.js, React, Node.js).
 
 ## 🚀 Features
 
 - User authentication (register, login, logout)
-- Create, read, update, and delete blog posts
+- Create, read, update, like, comment and delete blog posts
 - Responsive design
 - Protected routes with JWT authentication
 - User context management
