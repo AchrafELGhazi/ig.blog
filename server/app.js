@@ -6,7 +6,7 @@ const User = require('./models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-
+const verifyToken = require('./middlewares/verifyToken');
 
 const app = express();
 
@@ -22,23 +22,6 @@ app.use(cookieParser());
 
 mongoose.connect(process.env.MONGODB_URI);
 
-// JWT verification middleware
-function verifyToken(req, res, next) {
-  const token = req.cookies.token || req.headers['authorization'];
-  if (!token) {
-    return res.status(403).send({ auth: false, message: 'No token provided.' });
-  }
-
-  jwt.verify(token, secret, function (err, decoded) {
-    if (err) {
-      return res
-        .status(500)
-        .send({ auth: false, message: 'Failed to authenticate token.' });
-    }
-    req.userId = decoded.id;
-    next();
-  });
-}
 
 // This code handles user registration via a POST request to '/register'
 app.post('/register', async (req, res) => {
