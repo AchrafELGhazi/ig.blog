@@ -263,7 +263,7 @@ export default function Navbar() {
                   <div className='flex-shrink-0'>
                     <img
                       className='h-10 w-10 rounded-full'
-                      src={userInfo.img}
+                      src='web\public\prof_pic.png'
                       alt='Profile'
                     />
                   </div>

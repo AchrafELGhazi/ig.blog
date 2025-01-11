@@ -9,7 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import { UserContextProvider } from './utils/UserContext';
-import Profile from './pages/profile';
+import Profile from './pages/Profile';
 
 function App() {
   return (
