@@ -23,7 +23,7 @@ A modern blog application built with the MERN stack (MongoDB, Express.js, React,
 1. **Clone the repository**
    ```sh
    https://github.com/AchrafELGhazi/BLOG-APP.git
-   cd blog-app
+   cd blog-app/server
    ```
 
 2. **Install dependencies**
