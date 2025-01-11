@@ -118,7 +118,7 @@ function Home() {
         </button>
 
         <div className='text-3xl mx-20 font-bold mt-20 text-center'>{sentence}, and he is {age} years old</div> */}
-        <div className='pt-16'>
+        <div className='pt-16 sm:pt-28 px-3 sm:px-20'>
           {error && <div>{error}</div>}
           {isPending && <div>loading...</div>}
           {blogs && <BlogList blogs={blogs} />}

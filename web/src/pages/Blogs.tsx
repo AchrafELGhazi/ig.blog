@@ -10,8 +10,8 @@ const Blogs = () => {
 
   return (
     <div className='bg-gray-100  h-full'>
-      <div className='container mx-auto px-4 py-8'>
-        <h1 className=' text-4xl mt-16 font-bold text-center text-gray-800'>
+      <div className=' mx-3 md:mx-20 pt-8 sm:pt-20 px-4'>
+        <h1 className=' text-3xl md:text-3xl mt-20  font-bold text-center text-gray-800'>
           Our Latest Blog Posts
         </h1>
         <div>
