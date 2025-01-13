@@ -2,7 +2,6 @@ import './App.css';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import Contact from './pages/Contact';
-import NewBlogs from './pages/NewBlogs';
 import About from './pages/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
@@ -10,6 +9,9 @@ import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import { UserContextProvider } from './utils/UserContext';
 import Profile from './pages/Profile';
+import SingleBlog from './pages/SingleBlog';
+import { EditBlog } from './pages/EditBlog';
+import NewBlog from './pages/NewBlog';
 
 function App() {
   return (
@@ -22,11 +24,13 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/Blogs' element={<Blogs />} />
               <Route path='/Contact' element={<Contact />} />
-              <Route path='/NewBlogs' element={<NewBlogs />} />
+              <Route path='/NewBlog' element={<NewBlog />} />
               <Route path='/About' element={<About />} />
               <Route path='/Login' element={<Login />} />
               <Route path='/Register' element={<Register />} />
-              <Route path='/Profile' element={<Profile/>} />
+              <Route path='/Profile' element={<Profile />} />
+              <Route path='/Blog/:id' element={<SingleBlog />} />
+              <Route path='/Edit/:id' element={<EditBlog /> } />
             </Routes>
           </div>
         </div>

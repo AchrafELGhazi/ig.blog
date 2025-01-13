@@ -1,63 +1,18 @@
+import { formats, modules } from '@/utils/editor';
 import { useState } from 'react';
 // import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router';
 
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    [{ font: [] }], // Add font family options
-    [{ size: ['small', false, 'large', 'huge'] }], // Add different sizes
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ color: [] }, { background: [] }], // Add color pickers
-    [{ script: 'sub' }, { script: 'super' }],
-    [{ align: [] }],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ indent: '-1' }, { indent: '+1' }],
-    ['blockquote', 'code-block'],
-    ['link', 'image', 'video'],
-    ['clean'],
-  ],
-};
-
-const fonts = [
-  'Arial',
-  'Times New Roman',
-  'Roboto',
-  'Ubuntu Mono',
-  'Raleway',
-  'Poppins',
-];
-
-const formats = [
-  'header',
-  'fonts',
-  'size',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'color',
-  'background',
-  'script',
-  'align',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'image',
-  'video',
-  'blockquote',
-  'code-block',
-];
-
-const NewBlogs = () => {
+const NewBlog = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [summary, setSummary] = useState('');
   const [Image, setImage] = useState<File | null>(null);
   const [isPending, setIsPending] = useState(false);
-  // const navigate = useNavigate();
+  // const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     const data = new FormData();
@@ -67,13 +22,16 @@ const NewBlogs = () => {
     if (Image !== null) {
       data.set('Image', Image);
     }
-    // console.log('mesii ostora', Image);
     e.preventDefault();
     const response = await fetch('http://localhost:4000/createPost', {
       method: 'POST',
       body: data,
+      credentials: 'include',
     });
     console.log(await response.json());
+    // if (response.ok) {
+    //   navigate('/');
+    // }
   };
 
   return (
@@ -177,4 +135,4 @@ const NewBlogs = () => {
   );
 };
 
-export default NewBlogs;
+export default NewBlog;

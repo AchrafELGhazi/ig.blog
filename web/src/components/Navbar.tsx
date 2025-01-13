@@ -26,7 +26,7 @@ export default function Navbar() {
       method: 'POST',
     });
     setUserInfo({});
-    navigate('/');
+    // navigate('/');
   };
 
   const getLinks = () => {
@@ -38,7 +38,7 @@ export default function Navbar() {
     ];
 
     if (username) {
-      return [...baseLinks, { name: 'New Blog', link: '/NewBlogs' }];
+      return [...baseLinks, { name: 'New Blog', link: '/NewBlog' }];
     } else {
       return [
         ...baseLinks,
