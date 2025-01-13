@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { blogsDataTypes } from '@/utils/interfaces';
 import { UserContext } from '@/utils/UserContext';
+import CommentsSection from '@/components/CommentSection';
 
 const SingleBlog = () => {
   const { id } = useParams<{ id: string }>();
@@ -116,6 +117,7 @@ const SingleBlog = () => {
           />
         </div>
       </div>
+      <CommentsSection blogId={blogInfo._id} />
     </div>
   );
 };
