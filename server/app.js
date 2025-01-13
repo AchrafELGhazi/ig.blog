@@ -37,10 +37,8 @@ mongoose.connect(process.env.MONGODB_URI);
 
 // This code handles user registration via a POST request to '/register'
 app.post('/register', async (req, res) => {
-  // Get username and password that user submitted in request body
   const { username, password, email, bio, preferences, img } = req.body;
   try {
-    // Create a new user in the database with this info
     const userDoc = await User.create({
       username,
       password: bcrypt.hashSync(password, hash),
@@ -49,7 +47,6 @@ app.post('/register', async (req, res) => {
       preferences,
       img,
     });
-    // Send back the newly created user data as JSON response
     res.json(userDoc);
   } catch (error) {
     res.status(404).json(error);
@@ -61,7 +58,6 @@ app.post('/Login', async (req, res) => {
   const userDoc = await User.findOne({ username });
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
-    // logged in
     jwt.sign({ username, id: userDoc._id }, secret, {}, (error, token) => {
       if (error) {
         throw error;

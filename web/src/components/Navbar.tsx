@@ -26,7 +26,7 @@ export default function Navbar() {
       method: 'POST',
     });
     setUserInfo({});
-    // navigate('/');
+    navigate('/');
   };
 
   const getLinks = () => {
