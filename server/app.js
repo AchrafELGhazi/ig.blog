@@ -12,11 +12,7 @@ const fs = require('fs');
 const Blog = require('./models/blog');
 const bodyParser = require('body-parser');
 
-
 const app = express();
-
-
-
 
 const uploadMiddleware = multer({ dest: 'uploads/' });
 
@@ -86,6 +82,37 @@ app.get('/profile', verifyToken, (req, res) => {
 
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json('Logged out successfully');
+});
+app.post('/changePassword', async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword, id } = req.body;
+
+  if (!oldPassword || !newPassword || !confirmPassword || !id) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ message: 'New passwords do not match' });
+  }
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Old password is incorrect' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 app.post('/createPost', uploadMiddleware.single('Image'), async (req, res) => {
@@ -167,7 +194,7 @@ app.put('/editBlog', uploadMiddleware.single('Image'), async (req, res) => {
   }
 });
 
-app.delete('/deleteBlog/:id', async (req, res) => {
+app.delete('/Blog/deleteBlog/:id', async (req, res) => {
   const { id } = req.params;
   const { token } = req.cookies;
   if (!token) {
@@ -185,7 +212,8 @@ app.delete('/deleteBlog/:id', async (req, res) => {
         return res.status(404).json({ message: 'Blog not found' });
       }
 
-      const isAuthor = JSON.stringify(blogDoc.author) === JSON.stringify(info.id);
+      const isAuthor =
+        JSON.stringify(blogDoc.author) === JSON.stringify(info.id);
       if (!isAuthor) {
         return res.status(401).json({ message: 'Unauthorized' });
       }
@@ -225,41 +253,38 @@ app.get(`/Blog/:id`, async (req, res) => {
   }
 });
 
+app.post('/Blog/:id/likeBlog', async (req, res) => {
+  const { id } = req.params;
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, async (error, data) => {
+    if (error) throw error;
 
-app.post('/changePassword', async (req, res) => {
-  const { oldPassword, newPassword, confirmPassword, id } = req.body;
-
-  if (!oldPassword || !newPassword || !confirmPassword || !id) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
-
-  if (newPassword !== confirmPassword) {
-    return res.status(400).json({ message: 'New passwords do not match' });
-  }
-
-  try {
-    const user = await User.findById(id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    const blogDoc = await Blog.findById(id);
+    if (!blogDoc) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+    const userId = data.id;
+    const userLikeIndex = blogDoc.likes.indexOf(userId);
+    if (userLikeIndex === -1) {
+      blogDoc.likes.push(userId);
+    } else {
+      blogDoc.likes.splice(userLikeIndex, 1);
     }
 
-    const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Old password is incorrect' });
-    }
+    await blogDoc.save();
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(newPassword, salt);
-    await user.save();
-
-    res.status(200).json({ message: 'Password changed successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error' });
-  }
+    res.json({
+      likes: blogDoc.likes,
+      likeCount: blogDoc.likes.length,
+      message:
+        userLikeIndex === -1
+          ? 'Blog liked successfully'
+          : 'Blog unliked successfully',
+    });
+  });
 });
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-

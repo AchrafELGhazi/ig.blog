@@ -11,6 +11,7 @@ export interface blogsDataTypes {
   summary: string;
   cover: string;
   createdAt: string;
+  likeCount: number | null;
   content: string;
   author: Author;  // Use the Author interface here
 }
