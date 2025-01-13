@@ -7,9 +7,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const verifyToken = require('./middlewares/verifyToken');
+const multer = require('multer');
+const fs = require('fs');
+const Blog = require('./models/blog');
 
 const app = express();
-
+const uploadMiddleware = multer({ dest: 'uploads/' });
 
 // for password encryption using bcrypt
 const salt = bcrypt.genSaltSync(10);
@@ -22,11 +25,10 @@ app.use(cookieParser());
 
 mongoose.connect(process.env.MONGODB_URI);
 
-
 // This code handles user registration via a POST request to '/register'
 app.post('/register', async (req, res) => {
   // Get username and password that user submitted in request body
-  const { username, password, email, bio, preferences,img } = req.body;
+  const { username, password, email, bio, preferences, img } = req.body;
   try {
     // Create a new user in the database with this info
     const userDoc = await User.create({
@@ -77,9 +79,27 @@ app.get('/profile', verifyToken, (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.cookie('token', '').json('ok');
+  res.cookie('token', '').json('Logged out successfully');
 });
 
+app.post('/createPost', uploadMiddleware.single('Image'), async (req, res) => {
+  const { originalname, path } = req.file;
+  const parts = originalname.split('.');
+  const ext = parts[parts.length - 1];
+  const newPath = path + '.' + ext;
+  fs.renameSync(path, newPath);
 
+  const { title, summary, content } = req.body;
+  const blogDoc = await Blog.create({
+    title,
+    summary,
+    content,
+    cover: newPath,
+  });
+  res.json(blogDoc);
+});
 
-app.listen(3001);
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
