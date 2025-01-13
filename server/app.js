@@ -445,9 +445,6 @@ app.post('/Blog/:blogId/replyComment/:commentId', async (req, res) => {
 });
 
 
-// Handle delete comment
-// Handle delete comment
-// Handle delete comment
 app.delete('/Blog/:blogId/deleteComment/:commentId', async (req, res) => {
   try {
     const { blogId, commentId } = req.params;
@@ -482,10 +479,7 @@ app.delete('/Blog/:blogId/deleteComment/:commentId', async (req, res) => {
       return res.status(403).json({ message: 'You are not authorized to delete this comment' });
     }
 
-    // Remove the comment using pull
     blogDoc.comments.pull(commentId);
-    
-    // Save the updated blog document
     await blogDoc.save();
 
     res.status(200).json({ message: 'Comment deleted successfully', commentId });
@@ -497,10 +491,6 @@ app.delete('/Blog/:blogId/deleteComment/:commentId', async (req, res) => {
     });
   }
 });
-
-
-
-
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
