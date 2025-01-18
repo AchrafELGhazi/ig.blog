@@ -26,7 +26,7 @@ const Profile = () => {
         'Content-Type': 'application/json',
       },
     });
-
+      console.log(response)
   };
 
   return (

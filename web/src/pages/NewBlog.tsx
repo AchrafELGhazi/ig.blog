@@ -1,5 +1,6 @@
 import { formats, modules } from '@/utils/editor';
-import { useState } from 'react';
+import { UserContext } from '@/utils/UserContext';
+import { useContext, useState } from 'react';
 // import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -11,27 +12,46 @@ const NewBlog = () => {
   const [summary, setSummary] = useState('');
   const [Image, setImage] = useState<File | null>(null);
   const [isPending, setIsPending] = useState(false);
-  // const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
+  const { userInfo } = useContext(UserContext);
 
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
-    const data = new FormData();
-    data.set('title', title);
-    data.set('summary', summary);
-    data.set('content', content);
-    if (Image !== null) {
-      data.set('Image', Image);
-    }
     e.preventDefault();
-    const response = await fetch('http://localhost:4000/createPost', {
-      method: 'POST',
-      body: data,
-      credentials: 'include',
-    });
-    console.log(await response.json());
-    // if (response.ok) {
-    //   navigate('/');
-    // }
+
+    try {
+      setIsPending(true);
+
+      const data = new FormData();
+      data.set('title', title);
+      data.set('summary', summary);
+      data.set('content', content);
+      if (Image !== null) {
+        data.set('Image', Image);
+      }
+
+      const response = await fetch('http://localhost:4000/createPost', {
+        method: 'POST',
+        body: data,
+        credentials: 'include',
+      });
+
+      const responseData = await response.json();
+      console.log(responseData);
+
+      if (response.ok) {
+        navigate('/Blogs');
+      } else {
+        throw new Error(responseData.message || 'Failed to create post');
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+    } finally {
+      setIsPending(false);
+    }
+
+    if (!userInfo) {
+      navigate('/Login');
+    }
   };
 
   return (

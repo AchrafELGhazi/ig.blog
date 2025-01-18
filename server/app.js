@@ -50,25 +50,58 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/Login', async (req, res) => {
-  const { username, password } = req.body;
-  const userDoc = await User.findOne({ username });
-  const passOk = bcrypt.compareSync(password, userDoc.password);
-  if (passOk) {
-    jwt.sign({ username, id: userDoc._id }, secret, {}, (error, token) => {
-      if (error) {
-        throw error;
+  try {
+    const { username, password } = req.body;
+
+    // Check if username and password are provided
+    if (!username || !password) {
+      return res.status(400).json('Username and password are required');
+    }
+
+    // Find user
+    const userDoc = await User.findOne({ username });
+    if (!userDoc) {
+      return res.status(400).json('User not found');
+    }
+
+    // Check password
+    const passOk = bcrypt.compareSync(password, userDoc.password);
+    if (!passOk) {
+      return res.status(400).json('Wrong credentials');
+    }
+
+    // Create token with expiration
+    jwt.sign(
+      { username, id: userDoc._id },
+      secret,
+      { expiresIn: '2h' }, // Token expires in 24 hours
+      (error, token) => {
+        if (error) {
+          console.error('JWT Error:', error);
+          return res.status(500).json('Error creating token');
+        }
+
+        // Set secure cookie
+        res
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+          })
+          .json({
+            id: userDoc._id,
+            username,
+            email: userDoc.email,
+            bio: userDoc.bio,
+            preferences: userDoc.preferences,
+            img: userDoc.img,
+          });
       }
-      res.cookie('token', token).json({
-        id: userDoc._id,
-        username,
-        email: userDoc.email,
-        bio: userDoc.bio,
-        preferences: userDoc.preferences,
-        img: userDoc.img,
-      });
-    });
-  } else {
-    res.status(400).json('wrong credentials');
+    );
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json('Internal server error');
   }
 });
 
@@ -81,8 +114,17 @@ app.get('/profile', verifyToken, (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.cookie('token', '').json('Logged out successfully');
+  res
+    .clearCookie('token', {
+      sameSite: 'none',
+      secure: true,
+      httpOnly: true,
+      path: '/',
+    })
+    .json('Logged out successfully');
 });
+
+
 app.post('/changePassword', async (req, res) => {
   const { oldPassword, newPassword, confirmPassword, id } = req.body;
 

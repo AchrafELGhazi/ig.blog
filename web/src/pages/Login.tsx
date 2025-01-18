@@ -1,18 +1,18 @@
 import { UserContext } from '@/utils/UserContext';
 import { useContext, useState } from 'react';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginFailed, setLoginFailed] = useState(false);
-  const [redirect, setRedirect] = useState(false);
-  const {setUserInfo} = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoginFailed(false);
     e.preventDefault();
-    const response = await fetch('http://localhost:4000/login', {
+    const response = await fetch('http://localhost:4000/Login', {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -23,16 +23,13 @@ const Login = () => {
       response.json().then(userInfo => {
         console.log('messi hhahaha', userInfo);
         setUserInfo(userInfo);
-        setRedirect(true);
+        navigate('/Blogs');
       });
     } else {
       setLoginFailed(true);
     }
   };
 
-  if (redirect) {
-    return <Navigate to={'/'}></Navigate>;
-  }
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-100'>
       <div className='bg-white p-8 rounded-xl shadow-lg w-full max-w-md'>

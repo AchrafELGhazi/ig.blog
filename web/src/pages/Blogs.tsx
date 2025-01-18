@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { blogsDataTypes } from '@/utils/interfaces';
 import BlogCard from '@/components/BLogCard';
+import { useNavigate } from 'react-router';
+import { UserContext } from '@/utils/UserContext';
 
 function Blogs() {
   const [blogs, setBlogs] = useState<blogsDataTypes[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const { userInfo } = useContext(UserContext);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -16,6 +20,9 @@ function Blogs() {
       } catch (error) {
         setError('Failed to fetch blogs');
         console.error('Error:', error);
+      }
+      if (!userInfo) {
+        navigate('/Login');
       }
     };
 

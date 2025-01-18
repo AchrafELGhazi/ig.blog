@@ -1,8 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
-import Contact from './pages/Contact';
-import About from './pages/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -24,8 +22,6 @@ function App() {
             <Routes>
               {/* Public Routes */}
               <Route path='/' element={<Home />} />
-              <Route path='/Contact' element={<Contact />} />
-              <Route path='/About' element={<About />} />
               <Route path='/Login' element={<Login />} />
               <Route path='/Register' element={<Register />} />
 
