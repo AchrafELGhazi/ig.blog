@@ -12,18 +12,6 @@ interface CommentsSectionProps {
   blogId: string;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 const CommentComponent: React.FC<CommentComponentProps> = ({
   comment,
   onReply,
@@ -117,10 +105,6 @@ const CommentComponent: React.FC<CommentComponentProps> = ({
   );
 };
 
-
-
-
-
 const CommentsSection: React.FC<CommentsSectionProps> = ({ blogId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
@@ -132,109 +116,109 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ blogId }) => {
     fetchComments();
   }, [blogId]);
 
+  const fetchComments = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `http://localhost:4000/Blog/getComments/${blogId}`,
+        {
+          credentials: 'include', // Include if you need to send cookies
+        }
+      );
 
-
-const fetchComments = async () => {
-  try {
-    setIsLoading(true);
-    const response = await fetch(
-      `http://localhost:4000/Blog/getComments/${blogId}`,
-      {
-        credentials: 'include', // Include if you need to send cookies
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch comments');
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to fetch comments');
+      const data = await response.json();
+      setComments(data.comments);
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'Failed to fetch comments'
+      );
+      console.error('Error fetching comments:', error);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    const data = await response.json();
-    setComments(data.comments);
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
 
-  } catch (error) {
-    setError(error instanceof Error ? error.message : 'Failed to fetch comments');
-    console.error('Error fetching comments:', error);
-  } finally {
-    setIsLoading(false);
-  }
-};
+    try {
+      const response = await fetch(
+        `http://localhost:4000/Blog/postComment/${blogId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include', // Important for sending cookies
+          body: JSON.stringify({
+            comment: newComment, // Make sure to use 'comment' as the key
+          }),
+        }
+      );
 
-
-
-const handleCommentSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!newComment.trim()) return;
-
-  try {
-    const response = await fetch(`http://localhost:4000/Blog/postComment/${blogId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include', // Important for sending cookies
-      body: JSON.stringify({
-        comment: newComment, // Make sure to use 'comment' as the key
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to post comment');
-    }
-
-    const data = await response.json();
-    setNewComment(''); // Clear the input
-    await fetchComments(); // Refresh comments
-  } catch (error) {
-    console.error('Error posting comment:', error);
-    // Show error to user (you can set an error state here)
-  }
-};
-const handleReply = async (commentId: string, content: string) => {
-  try {
-    const response = await fetch(
-      `http://localhost:4000/Blog/${blogId}/replyComment/${commentId}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ content }),
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to post comment');
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to post reply');
+      await response.json();
+      setNewComment(''); // Clear the input
+      await fetchComments(); // Refresh comments
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      // Show error to user (you can set an error state here)
     }
+  };
+  const handleReply = async (commentId: string, content: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/Blog/${blogId}/replyComment/${commentId}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ content }),
+        }
+      );
 
-    await fetchComments();
-  } catch (error) {
-    setError(error instanceof Error ? error.message : 'Failed to post reply');
-  }
-};
-const handleDelete = async (commentId: string) => {
-  try {
-    const response = await fetch(
-      `http://localhost:4000/Blog/${blogId}/deleteComment/${commentId}`,
-      {
-        method: 'DELETE',
-        credentials: 'include',
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to post reply');
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to delete comment');
+      await fetchComments();
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Failed to post reply');
     }
+  };
+  const handleDelete = async (commentId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/Blog/${blogId}/deleteComment/${commentId}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+        }
+      );
 
-    await fetchComments();
-  } catch (error) {
-    setError(
-      error instanceof Error ? error.message : 'Failed to delete comment'
-    );
-  }
-};
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete comment');
+      }
+
+      await fetchComments();
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'Failed to delete comment'
+      );
+    }
+  };
 
   if (isLoading) {
     return <div className='mt-8 text-center'>Loading comments...</div>;
