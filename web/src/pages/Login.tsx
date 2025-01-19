@@ -76,6 +76,12 @@ const Login = () => {
                 Sign In
               </Button>
             </div>
+            <div className='flex items-center justify-between mt-4'>
+              <span>Don't have an account?</span>
+              <Button className='ml-2' onClick={() => navigate('/register')}>
+                Sign Up
+              </Button>
+            </div>
           </form>
           {loginFailed && (
             <motion.div

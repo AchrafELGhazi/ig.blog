@@ -113,6 +113,12 @@ const Register = () => {
             <Button type='submit' className='w-full'>
               Register
             </Button>
+            <div className='flex items-center justify-between mt-4'>
+              <span>Already have an account?</span>
+              <Button className='ml-2' onClick={() => navigate('/login')}>
+                Sign In
+              </Button>
+            </div>
           </form>
           {registerFailed && (
             <motion.div
