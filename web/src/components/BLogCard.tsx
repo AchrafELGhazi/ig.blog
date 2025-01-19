@@ -1,42 +1,74 @@
-import { blogsDataTypes } from '@/utils/interfaces';
-import { format } from 'date-fns'; // You can install date-fns with npm or yarn
-import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ThumbsUp, MessageCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Blog } from '@/utils/types';
+import { Badge } from './ui/badge';
 
-function BlogCard({
-  _id,
-  title,
-  summary,
-  cover,
-  createdAt,
-  content,
-  author,
-}: blogsDataTypes) {
-  // Format the createdAt date
-  const formattedDate = format(new Date(createdAt), 'PPP p'); // 'PPP p' for date and time
+interface BlogCardProps {
+  blog: Blog;
+  index: number;
+  variant?: 'full' | 'trending';
+}
+
+const BlogCard = ({ blog, index, variant = 'full' }: BlogCardProps) => {
+  if (variant === 'trending') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.1 }}
+        className='mb-4 p-4 bg-card rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1'
+      >
+        <h3 className='text-lg font-semibold mb-2'>{blog.title}</h3>
+        <p className='text-sm text-muted-foreground mb-2'>{blog.summary}</p>
+        <div className='flex justify-between items-center text-sm'>
+          <span className='flex items-center'>
+            <ThumbsUp className='w-4 h-4 mr-1 text-primary' />
+            {blog.likes.length}
+          </span>
+          <Badge variant='secondary'>#{index + 1}</Badge>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
-    <div className='blog-card bg-white rounded-lg shadow-lg overflow-hidden mb-6'>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      className='bg-card text-card-foreground rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'
+    >
       <img
+        src={'http://localhost:4000/' + blog.cover}
+        alt={blog.title}
         className='w-full h-48 object-cover'
-        src={'http://localhost:4000/' + cover}
-        alt={title}
       />
       <div className='p-6'>
-        <Link to={`/Blog/${_id}`}>
-          <h2 className='text-2xl cursor-auto font-semibold mb-2'>{title}</h2>
-        </Link>
-        <h2 className='text-2xl font-semibold mb-2'>
-          @{author?.username || 'Unknown Author'}
-        </h2>
-        <p className='text-gray-500 text-sm mb-4'>{formattedDate}</p>
-        <p className='text-gray-700 text-base mb-4'>{summary}</p>
-        <div
-          dangerouslySetInnerHTML={{ __html: content }}
-          className='mt-6 text-base text-gray-800'
-        />
+        <h3 className='text-xl font-semibold mb-2'>{blog.title}</h3>
+        <p className='text-muted-foreground text-sm mb-4'>{blog.summary}</p>
+        <div className='flex items-center justify-between text-sm text-muted-foreground'>
+          <span>{blog.author.username}</span>
+          <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
+        </div>
+        <div className='flex items-center justify-between mt-4 text-sm'>
+          <div className='flex items-center space-x-4'>
+            <span className='flex items-center'>
+              <ThumbsUp className='w-4 h-4 mr-1 text-primary' />
+              {blog.likes.length}
+            </span>
+            <span className='flex items-center'>
+              <MessageCircle className='w-4 h-4 mr-1 text-primary' />
+              {blog.comments.length}
+            </span>
+          </div>
+          <Button variant='outline' size='sm'>
+            Read More
+          </Button>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
-}
+};
 
 export default BlogCard;

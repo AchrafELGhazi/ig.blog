@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UserContext } from '@/utils/UserContext';
+import { NotificationsPanel } from './NotificationPanel';
 
 interface AuthenticatedNavbarProps {
   username: string;
@@ -29,6 +30,8 @@ export default function AuthenticatedNavbar({
   const { setUserInfo } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
 
 const logout = async () => {
   try {
@@ -125,6 +128,7 @@ const logout = async () => {
                 variant='ghost'
                 size='icon'
                 className='text-muted-foreground hover:text-foreground'
+                onClick={() => setIsNotificationsOpen(true)}
               >
                 <Bell className='h-5 w-5' />
               </Button>
@@ -219,6 +223,11 @@ const logout = async () => {
           </div>
         )}
       </div>
+      <NotificationsPanel
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+        
+      />
     </header>
   );
 }
