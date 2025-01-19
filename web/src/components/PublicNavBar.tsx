@@ -28,7 +28,7 @@ export function PublicNavbar() {
   };
 
   return (
-    <header className='fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4'>
+    <header className='fixed top-7 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4'>
       <div className='bg-background/80 backdrop-blur-lg rounded-full border'>
         <div className='container mx-auto'>
           <div className='flex h-16 items-center justify-between px-4'>
