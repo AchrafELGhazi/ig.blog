@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { AlertCircle, CheckCircle2 } from 'lucide-react';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -17,121 +23,118 @@ const Register = () => {
     setRegisterSuccessful(false);
     const response = await fetch('http://localhost:4000/register', {
       method: 'POST',
-      body: JSON.stringify({ username, password, bio, email, preferences }), // why: send the data to the server in JSON format (as a string)
+      body: JSON.stringify({ username, password, bio, email, preferences }),
       headers: {
-        'Content-Type': 'application/json', // why: tell the server that the data is in JSON format
+        'Content-Type': 'application/json',
       },
     });
     if (!response.ok) {
       setRegisterFailed(true);
     } else if (response.ok) {
       setRegisterSuccessful(true);
-      navigate('/login');
+      setTimeout(() => navigate('/login'), 2000);
     }
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-100'>
-      <div className='bg-white p-8 rounded-xl shadow-lg w-full max-w-md'>
-        <h2 className='text-2xl font-bold mb-6 text-center'>Register</h2>
-        <form onSubmit={register}>
-          <div className='mb-4'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='username'
+    <div className='min-h-screen bg-gradient-to-b from-background via-background to-muted/20 pt-32'>
+      <div className='container px-4 sm:px-6 lg:px-8 mx-auto'>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className='bg-background/80 backdrop-blur-lg rounded-3xl shadow-lg border p-8 sm:p-10 w-full max-w-4xl mx-auto'
+        >
+          <h2 className='text-3xl font-bold mb-6 text-center text-foreground'>
+            Register
+          </h2>
+          <form onSubmit={register} className='space-y-6'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <div>
+                <Label htmlFor='username'>Username</Label>
+                <Input
+                  id='username'
+                  type='text'
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  placeholder='Enter your username'
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  id='email'
+                  type='email'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder='Enter your email'
+                  required
+                />
+              </div>
+            </div>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <div>
+                <Label htmlFor='password'>Password</Label>
+                <Input
+                  id='password'
+                  type='password'
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder='Enter your password'
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor='preferences'>Preferences</Label>
+                <Input
+                  id='preferences'
+                  type='text'
+                  value={preferences.join(', ')}
+                  onChange={e =>
+                    setPreferences(
+                      e.target.value.split(',').map(pref => pref.trim())
+                    )
+                  }
+                  placeholder='Enter preferences separated by commas'
+                />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor='bio'>Bio</Label>
+              <Textarea
+                id='bio'
+                value={bio}
+                onChange={e => setBio(e.target.value)}
+                placeholder='Tell us about yourself'
+                className='resize-none h-32'
+              />
+            </div>
+            <Button type='submit' className='w-full'>
+              Register
+            </Button>
+          </form>
+          {registerFailed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className='mt-4 p-3 bg-red-100 text-red-700 rounded-lg flex items-center'
             >
-              Username
-            </label>
-            <input
-              type='text'
-              value={username}
-              onChange={e => {
-                setUsername(e.target.value);
-              }}
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              placeholder='Enter your username'
-            />
-          </div>
-          <div className='mb-6'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='password'
+              <AlertCircle className='w-5 h-5 mr-2' />
+              Registration failed. Try with another unique username.
+            </motion.div>
+          )}
+          {registerSuccessful && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className='mt-4 p-3 bg-green-100 text-green-700 rounded-lg flex items-center'
             >
-              Password
-            </label>
-            <input
-              type='password'
-              value={password}
-              onChange={e => {
-                setPassword(e.target.value);
-              }}
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-              placeholder='Enter your password'
-            />
-          </div>
-          <div className='mb-6'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='emal'
-            >
-              email
-            </label>
-            <input
-              type='email'
-              value={email}
-              onChange={e => {
-                setEmail(e.target.value);
-              }}
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-              placeholder='Enter your email'
-            />
-          </div>{' '}
-          <div className='mb-6'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='bio'
-            >
-              Bio
-            </label>
-            <input
-              type='bio'
-              value={bio}
-              onChange={e => {
-                setBio(e.target.value);
-              }}
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-              placeholder='Enter your Bio'
-            />
-          </div>
-          <div className='mb-6'>
-            <label className='block text-gray-700'>Preferences</label>
-          <input
-            type='text'
-            value={preferences.join(', ')}
-            onChange={(e) => setPreferences(e.target.value.split(',').map(pref => pref.trim()))}
-            className='w-full p-2 border border-gray-300 rounded mt-1'
-            placeholder='Enter preferences separated by commas'
-          />
-          </div>
-          <div className='flex items-center justify-between'>
-            <button
-              type='submit'
-              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-            >
-              Sign In
-            </button>
-            {/* <a
-              className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
-              href='#'
-            >
-              Forgot Password?
-            </a> */}
-          </div>
-        </form>
-        {registerFailed && (
-          <div>Registration failed. Try with another unique username</div>
-        )}
-        {registerSuccessful && <div>You registered successfully</div>}
+              <CheckCircle2 className='w-5 h-5 mr-2' />
+              You registered successfully. Redirecting to login...
+            </motion.div>
+          )}
+        </motion.div>
       </div>
     </div>
   );

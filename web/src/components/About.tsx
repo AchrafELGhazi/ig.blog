@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 
 export function About() {
-
   return (
-    <section className=' px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24'>
+    <section className='container px-4 sm:px-6 lg:px-8 py-20 mx-auto'>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -69,7 +68,7 @@ export function About() {
           </h2>
           <div className='inline-block relative'>
             <img
-              src='/placeholder.svg'
+              src='/me.jpg'
               alt='Achraf EL GHAZI'
               className='w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-primary/20 transform transition-all duration-300 hover:scale-105'
             />
@@ -91,10 +90,8 @@ export function About() {
             Full-Stack Software Developer @neoCedrus & Creator of IG.Blog
             Manager
           </p>
-         
+     
         </motion.div>
-
-       
       </motion.div>
     </section>
   );

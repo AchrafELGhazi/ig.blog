@@ -11,6 +11,7 @@ import SingleBlog from './pages/SingleBlog';
 import { EditBlog } from './pages/EditBlog';
 import NewBlog from './pages/NewBlog';
 import ProtectedRoutes from './utils/ProtectedRoutes';
+import Explore from './pages/Explore';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/Login' element={<Login />} />
               <Route path='/Register' element={<Register />} />
+              <Route path='/Explore' element={<Explore />} />
 
               {/* Private Routes */}
               <Route element={<ProtectedRoutes />}>

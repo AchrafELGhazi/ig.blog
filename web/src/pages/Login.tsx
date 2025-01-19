@@ -1,6 +1,11 @@
 import { UserContext } from '@/utils/UserContext';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { AlertCircle } from 'lucide-react';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -16,12 +21,11 @@ const Login = () => {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include', // when we do this we get cors error we need to handle it by setting credentials
-      // to true in the cors fct in the server with the origin being the host of our react app
+      credentials: 'include',
     });
     if (response.ok) {
       response.json().then(userInfo => {
-        console.log('messi hhahaha', userInfo);
+        console.log('Login successful', userInfo);
         setUserInfo(userInfo);
         navigate('/Blogs');
       });
@@ -31,60 +35,59 @@ const Login = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-100'>
-      <div className='bg-white p-8 rounded-xl shadow-lg w-full max-w-md'>
-        <h2 className='text-2xl font-bold mb-6 text-center'>Login</h2>
-        <form onSubmit={login}>
-          <div className='mb-4'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='username'
+    <div className='min-h-screen bg-gradient-to-b from-background via-background to-muted/20 pt-48'>
+      <div className='container px-4 sm:px-6 lg:px-8 mx-auto'>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className='bg-background/80 backdrop-blur-lg rounded-3xl shadow-lg border p-8 sm:p-10 w-full max-w-2xl mx-auto'
+        >
+          <h2 className='text-3xl font-bold mb-6 text-center text-foreground'>
+            Login
+          </h2>
+          <form onSubmit={login} className='space-y-6'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <div className='md:col-span-2'>
+                <Label htmlFor='username'>Username</Label>
+                <Input
+                  id='username'
+                  type='text'
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  placeholder='Enter your username'
+                  required
+                />
+              </div>
+              <div className='md:col-span-2'>
+                <Label htmlFor='password'>Password</Label>
+                <Input
+                  id='password'
+                  type='password'
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder='Enter your password'
+                  required
+                />
+              </div>
+            </div>
+            <div className='flex items-center justify-between'>
+              <Button type='submit' className='w-full'>
+                Sign In
+              </Button>
+            </div>
+          </form>
+          {loginFailed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className='mt-4 p-3 bg-red-100 text-red-700 rounded-lg flex items-center'
             >
-              Username
-            </label>
-            <input
-              type='text'
-              value={username}
-              onChange={e => {
-                setUsername(e.target.value);
-              }}
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              placeholder='Enter your username'
-            />
-          </div>
-          <div className='mb-6'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='password'
-            >
-              Password
-            </label>
-            <input
-              type='password'
-              value={password}
-              onChange={e => {
-                setPassword(e.target.value);
-              }}
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-              placeholder='Enter your password'
-            />
-          </div>
-          <div className='flex items-center justify-between'>
-            <button
-              type='submit'
-              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-            >
-              Sign In
-            </button>
-            {/* <a
-              className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
-              href='#'
-            >
-              Forgot Password?
-            </a> */}
-          </div>
-        </form>
-        {loginFailed && <div>Login failed</div>}
+              <AlertCircle className='w-5 h-5 mr-2' />
+              Login failed. Please check your credentials and try again.
+            </motion.div>
+          )}
+        </motion.div>
       </div>
     </div>
   );

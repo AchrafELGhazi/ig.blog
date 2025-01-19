@@ -62,7 +62,7 @@ export function Contact() {
   ];
 
   return (
-    <section className='container px-4 sm:px-6 lg:px-8 py-20'>
+    <section className='container px-4 sm:px-6 lg:px-8 py-20 mx-auto'>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,37 +77,41 @@ export function Contact() {
           We'd love to hear from you. Let's create something amazing together.
         </p>
       </motion.div>
-
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16'>
-        {contactMethods.map((method, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className='relative group'
-          >
-            <div className='p-6 sm:p-8 bg-background/50 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border'>
-              <div className='inline-flex p-3 rounded-lg bg-primary/10 text-primary ring-4 ring-primary/5 group-hover:ring-primary/10 transition-all duration-300'>
-                {method.icon}
+      
+      <div className='container mx-auto max-w-7xl'>
+        <div className=' grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 sm:mx-4 md:mx-20 lg:mx-0'>
+          {contactMethods.map((method, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className='relative group'
+            >
+              <div className='p-6 sm:p-8 bg-background/50 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border'>
+                <div className='inline-flex p-3 rounded-lg bg-primary/10 text-primary ring-4 ring-primary/5 group-hover:ring-primary/10 transition-all duration-300'>
+                  {method.icon}
+                </div>
+                <h3 className='mt-4 text-xl font-semibold text-foreground'>
+                  {method.title}
+                </h3>
+                <p className='mt-2 text-muted-foreground'>
+                  {method.description}
+                </p>
+                <p className='mt-4 text-primary font-medium cursor-pointer hover:text-primary/80'>
+                  {method.action}
+                </p>
               </div>
-              <h3 className='mt-4 text-xl font-semibold text-foreground'>
-                {method.title}
-              </h3>
-              <p className='mt-2 text-muted-foreground'>{method.description}</p>
-              <p className='mt-4 text-primary font-medium cursor-pointer hover:text-primary/80'>
-                {method.action}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className='max-w-xl mx-auto px-4'
+        className='max-w-xl mx-auto'
       >
         <form onSubmit={onSubmit} className='space-y-6'>
           <div>
