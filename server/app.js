@@ -74,14 +74,13 @@ app.post('/Login', async (req, res) => {
     jwt.sign(
       { username, id: userDoc._id },
       secret,
-      { expiresIn: '2h' }, // Token expires in 24 hours
+      { expiresIn: '24h' }, // Token expires in 24 hours
       (error, token) => {
         if (error) {
           console.error('JWT Error:', error);
           return res.status(500).json('Error creating token');
         }
 
-        // Set secure cookie
         res
           .cookie('token', token, {
             httpOnly: true,
@@ -158,6 +157,7 @@ app.post('/changePassword', async (req, res) => {
 });
 
 app.post('/createPost', uploadMiddleware.single('Image'), async (req, res) => {
+  console.log(req.body)
   const { originalname, path } = req.file;
   const parts = originalname.split('.');
   const ext = parts[parts.length - 1];
@@ -168,11 +168,14 @@ app.post('/createPost', uploadMiddleware.single('Image'), async (req, res) => {
 
   jwt.verify(token, secret, {}, async (error, info) => {
     if (error) throw error;
-    const { title, summary, content } = req.body;
+    const { title, summary, content, tags } = req.body;
+    const tagsArray = tags.split(',').map(tag => tag.trim());
+
     const blogDoc = await Blog.create({
       title,
       summary,
       content,
+      tags:tagsArray,
       cover: newPath,
       author: info.id,
     });
@@ -425,7 +428,6 @@ app.get('/Blog/getComments/:blogId', async (req, res) => {
 
 
 
-// ...existing code
 
 // Handle reply to a comment
 app.post('/Blog/:blogId/replyComment/:commentId', async (req, res) => {

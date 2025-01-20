@@ -20,6 +20,8 @@ const BlogSchema = new Schema(
     summary: String,
     content: String,
     cover: String,
+    views: { type: Number, default: 0 },
+    tags: { type: [String], default: [], required: false },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',

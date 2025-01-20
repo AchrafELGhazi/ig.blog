@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Bell,
@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UserContext } from '@/utils/UserContext';
 import { NotificationsPanel } from './NotificationPanel';
+import { Blog } from '@/utils/types';
 
 interface AuthenticatedNavbarProps {
   username: string;
@@ -30,26 +31,57 @@ export default function AuthenticatedNavbar({
   const { setUserInfo } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
+  const logout = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/logout', {
+        credentials: 'include',
+        method: 'POST',
+      });
 
-const logout = async () => {
-  try {
-    const response = await fetch('http://localhost:4000/logout', {
-      credentials: 'include',
-      method: 'POST',
-    });
-
-    if (response.ok) {
-      setUserInfo({});
-      navigate('/');
-    } else {
-      console.error('Logout failed');
+      if (response.ok) {
+        setUserInfo(null);
+        navigate('/');
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
     }
-  } catch (error) {
-    console.error('Logout error:', error);
-  }
-};
+  };
+
+  const [allPosts, setAllPosts] = useState<Blog[]>([]);
+  const [trendingPosts, setTrendingPosts] = useState<Blog[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/getBlogs');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const blogsData: Blog[] = await response.json();
+        setAllPosts(blogsData);
+        const sortedByLikes = [...blogsData].sort(
+          (a, b) => b.likes.length - a.likes.length
+        );
+        setTrendingPosts(sortedByLikes.slice(0, 5));
+        setIsLoading(false);
+      } catch (error) {
+        setError('Failed to fetch blogs');
+        console.error('Error:', error);
+        setIsLoading(false);
+      }
+    
+    };
+    fetchBlogs();
+  }, [navigate]);
+
+  const filteredPosts = allPosts.filter(blog =>
+    blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
@@ -94,8 +126,11 @@ const logout = async () => {
             <div className='relative max-w-2xl mx-auto'>
               <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground' />
               <Input
-                placeholder='Search posts, topics, or users...'
-                className='pl-10 pr-4 py-2 w-full bg-muted/30 border-none focus:ring-2 focus:ring-primary/50 rounded-full text-sm'
+                type='text'
+                placeholder='Search blogs...'
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                className='rounded-full pl-10'
               />
             </div>
           </div>
@@ -226,7 +261,6 @@ const logout = async () => {
       <NotificationsPanel
         isOpen={isNotificationsOpen}
         onClose={() => setIsNotificationsOpen(false)}
-        
       />
     </header>
   );

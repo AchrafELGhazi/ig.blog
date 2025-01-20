@@ -1,7 +1,6 @@
 import { formats, modules } from '@/utils/editor';
 import { UserContext } from '@/utils/UserContext';
 import { useContext, useState } from 'react';
-// import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router';
@@ -11,6 +10,7 @@ const NewBlog = () => {
   const [content, setContent] = useState('');
   const [summary, setSummary] = useState('');
   const [Image, setImage] = useState<File | null>(null);
+  const [tags, setTags] = useState<string[]>([]);
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
@@ -28,6 +28,9 @@ const NewBlog = () => {
       if (Image !== null) {
         data.set('Image', Image);
       }
+       if (tags.length > 0) {
+         data.set('tags', tags.join(','));
+       }
 
       const response = await fetch('http://localhost:4000/createPost', {
         method: 'POST',
@@ -36,7 +39,7 @@ const NewBlog = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
+      console.log('rah hia hadi wllah',responseData);
 
       if (response.ok) {
         navigate('/Blogs');
@@ -96,6 +99,23 @@ const NewBlog = () => {
                 value={summary}
                 onChange={e => setSummary(e.target.value)}
                 placeholder='Enter blog summary'
+              />
+            </div>
+            <div>
+              <label
+                htmlFor='tags'
+                className='block text-sm font-medium text-gray-700 mb-2'
+              >
+                Blog Tags
+              </label>
+              <input
+                type='text'
+                className='w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 ease-in-out'
+                value={tags.join(', ')}
+                onChange={e =>
+                  setTags(e.target.value.split(',').map(pref => pref.trim()))
+                }
+                placeholder='Enter tags separated by commas'
               />
             </div>
           </div>

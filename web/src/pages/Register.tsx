@@ -46,7 +46,7 @@ const Register = () => {
           className='bg-background/80 backdrop-blur-lg rounded-3xl shadow-lg border p-8 sm:p-10 w-full max-w-4xl mx-auto'
         >
           <h2 className='text-3xl font-bold mb-6 text-center text-foreground'>
-            Register
+            Sign Up
           </h2>
           <form onSubmit={register} className='space-y-6'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
@@ -113,11 +113,18 @@ const Register = () => {
             <Button type='submit' className='w-full'>
               Register
             </Button>
-            <div className='flex items-center justify-between mt-4'>
-              <span>Already have an account?</span>
-              <Button className='ml-2' onClick={() => navigate('/login')}>
-                Sign In
-              </Button>
+           
+            <div className='mt-6 text-center'>
+              <p className='text-sm text-muted-foreground'>
+                Already have an account?
+                <Button
+                  variant='link'
+                  className='p-0 h-auto font-normal text-primary hover:underline'
+                  onClick={() => navigate('/Login')}
+                >
+                  Sign In
+                </Button>
+              </p>
             </div>
           </form>
           {registerFailed && (

@@ -2,7 +2,14 @@
 export interface User {
   _id: string;
   username: string;
+  email: string;
+  bio?: string;
+  preferences?: string[];
+  img?: string;
+  blogs: string[];
 }
+
+
 
 export interface Reply {
   _id: string;
@@ -20,14 +27,16 @@ export interface Comment {
 }
 
 export interface Blog {
-  _id: string;
+   _id: string;
   title: string;
   summary: string;
   content: string;
   cover: string;
+  views: number;
+  tags: string[];
   author: User;
-  likes: User[];
+  likes: string[];
   comments: Comment[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
