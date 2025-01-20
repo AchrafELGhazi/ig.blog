@@ -15,8 +15,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UserContext } from '@/utils/UserContext';
-import { NotificationsPanel } from './NotificationPanel';
-import { Blog } from '@/utils/types';
+import { NotificationsPanel } from './NotificationsPanel';
+import type { Blog } from '@/utils/types';
 
 interface AuthenticatedNavbarProps {
   username: string;
@@ -74,7 +74,6 @@ export default function AuthenticatedNavbar({
         console.error('Error:', error);
         setIsLoading(false);
       }
-    
     };
     fetchBlogs();
   }, [navigate]);
@@ -84,7 +83,7 @@ export default function AuthenticatedNavbar({
   );
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='container mx-auto max-w-7xl px-2 sm:px-4'>
         {/* Search Overlay for Mobile */}
         {isSearchOpen && (
@@ -234,6 +233,10 @@ export default function AuthenticatedNavbar({
               variant='ghost'
               size='sm'
               className='w-full justify-start text-muted-foreground hover:text-foreground'
+              onClick={() => {
+                setIsNotificationsOpen(true);
+                setIsMenuOpen(false);
+              }}
             >
               <Bell className='h-5 w-5 mr-3' />
               Notifications

@@ -17,7 +17,7 @@ const TrendingBlogs: React.FC<TrendingBlogsProps> = ({
   error,
 }) => {
   return (
-    <Card className='rounded-xl overflow-hidden border shadow-lg'>
+    <Card className='rounded-xl overflow-hidden border shadow-lg z-0'>
       <CardHeader>
         <h2 className='text-2xl font-bold flex items-center'>
           <TrendingUp className='mr-2 text-primary' />

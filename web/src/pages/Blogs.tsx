@@ -43,12 +43,16 @@ const Blogs = () => {
     fetchBlogs();
   }, [navigate, userInfo]);
 
+  if (!userInfo) {
+    navigate('/Login');
+  }
+
   const filteredPosts = allPosts.filter(blog =>
     blog.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className='min-h-screen bg-gradient-to-b from-background via-background to-muted/20 pt-8 pb-12'>
+    <div className='min-h-screen bg-gradient-to-b from-background via-background to-muted/20 pt-8 pb-12 -z-50'>
       <div className='container px-4 sm:px-6 lg:px-8 mx-auto'>
         {/* Welcome Section */}
         <motion.div
