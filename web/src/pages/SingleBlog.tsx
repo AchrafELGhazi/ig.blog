@@ -263,10 +263,10 @@ const SingleBlog = () => {
             </div>
 
             <div className='flex items-center space-x-4 text-muted-foreground mb-6'>
-              <Badge variant='secondary' className='text-sm'>
+              {/* <Badge variant='secondary' className='text-sm'>
                 <Clock className='mr-2 h-4 w-4' />
                 {readingTime} min read
-              </Badge>
+              </Badge> */}
 
               {blogInfo.tags &&
                 blogInfo.tags[0]?.split(',').map((tag, index) => (
