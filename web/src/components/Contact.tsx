@@ -40,27 +40,61 @@ export function Contact() {
     }
   };
 
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('+212 698 20 45 60');
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000); // Hide the popup after 2 seconds
+  };
   const contactMethods = [
     {
       icon: <MessageSquare className='w-6 h-6' />,
       title: 'Chat with us',
       description: "We're here to help.",
-      action: 'a.elghazi@aui.ma',
+      action: (
+        <a
+          href='mailto:a.elghazi@aui.ma'
+          className='text-primary hover:text-primary/80'
+        >
+          a.elghazi@aui.ma
+        </a>
+      ),
     },
     {
       icon: <Clock className='w-6 h-6' />,
       title: '24/7 Support',
       description: 'Round the clock assistance',
-      action: '+212 698 20 45 60',
+      action: (
+        <button
+          onClick={handleCopy}
+          className='text-primary hover:text-primary/80'
+        >
+          +212 698 20 45 60
+        </button>
+        
+      ),
     },
     {
       icon: <MapPin className='w-6 h-6' />,
       title: 'Visit us',
       description: 'Ifrane, Morocco',
-      action: 'Get directions',
+      action: (
+        <a
+          href='https://www.google.com/maps/search/?api=1&query=Ifrane,+Morocco'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='text-primary hover:text-primary/80'
+        >
+          Get directions
+        </a>
+      ),
     },
   ];
 
+  
   return (
     <section className='container px-4 sm:px-6 lg:px-8 py-20 mx-auto'>
       <motion.div
@@ -77,7 +111,7 @@ export function Contact() {
           We'd love to hear from you. Let's create something amazing together.
         </p>
       </motion.div>
-      
+
       <div className='container mx-auto max-w-7xl'>
         <div className=' grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 sm:mx-4 md:mx-20 lg:mx-0'>
           {contactMethods.map((method, index) => (
@@ -101,6 +135,9 @@ export function Contact() {
                 <p className='mt-4 text-primary font-medium cursor-pointer hover:text-primary/80'>
                   {method.action}
                 </p>
+                {method.title === '24/7 Support' && isCopied && (
+                  <div className='text-green-500 mt-2'>Number was copied!</div>
+                )}
               </div>
             </motion.div>
           ))}

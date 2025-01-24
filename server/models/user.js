@@ -11,7 +11,7 @@ const userSchema = new Schema({
   bio: { type: String, default: '', maxlength: 100, required: false },
   preferences: { type: [String], default: [], required: false },
   img: { type: String, default: '', required: false },
-  blogs: [{ type: Schema.Types.ObjectId, ref: 'Blog' }], // Reference to BlogModel
+  blogs: [{ type: Schema.Types.ObjectId, ref: 'Blog' }],
 });
 
 const UserModel = model('User', userSchema);

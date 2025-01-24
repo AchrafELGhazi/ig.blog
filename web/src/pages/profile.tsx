@@ -21,6 +21,7 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  console.log('messi');
 
   const changePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ const Profile = () => {
           oldPassword,
           newPassword,
           confirmPassword,
-          id: userInfo.id,
+          id: userInfo?._id,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -72,6 +73,7 @@ const Profile = () => {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className='min-h-screen bg-gradient-to-b from-background via-background to-muted/20 pt-20'>
