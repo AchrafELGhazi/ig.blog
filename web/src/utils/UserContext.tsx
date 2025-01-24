@@ -1,7 +1,5 @@
 // Import necessary dependencies from React
 import { createContext, useState, ReactNode } from 'react';
-import type { User } from './types';
-
 
 // Define the structure of our user data
 interface UserInfo {
@@ -15,13 +13,13 @@ interface UserInfo {
 
 // Define the structure of our context data
 interface UserContextType {
-  userInfo: User | null;
-  setUserInfo: React.Dispatch<React.SetStateAction<User | null>>;
+  userInfo: UserInfo;
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
 // Create the context with default values
 export const UserContext = createContext<UserContextType>({
-  userInfo: null,
+  userInfo: {},
   setUserInfo: () => {},
 });
 
@@ -33,7 +31,7 @@ interface UserContextProviderProps {
 // Create the Provider component
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   // Create state to hold user information
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo>({});
 
   return (
     <UserContext.Provider value={{ userInfo, setUserInfo }}>

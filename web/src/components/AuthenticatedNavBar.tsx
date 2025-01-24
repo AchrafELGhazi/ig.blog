@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Bell,
@@ -18,8 +17,6 @@ import { Input } from '@/components/ui/input';
 import { UserContext } from '@/utils/UserContext';
 import { NotificationsPanel } from './NotificationsPanel';
 import type { Blog } from '@/utils/types';
-import { NotificationsPanel } from './NotificationsPanel';
-import type { Blog } from '@/utils/types';
 
 interface AuthenticatedNavbarProps {
   username: string;
@@ -35,14 +32,7 @@ export default function AuthenticatedNavbar({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
-  const logout = async () => {
-    try {
-      const response = await fetch('http://localhost:4000/logout', {
-        credentials: 'include',
-        method: 'POST',
-      });
   const logout = async () => {
     try {
       const response = await fetch('http://localhost:4000/logout', {
@@ -52,6 +42,7 @@ export default function AuthenticatedNavbar({
 
       if (response.ok) {
         setUserInfo({});
+
         navigate('/');
       } else {
         console.error('Logout failed');
@@ -94,7 +85,6 @@ export default function AuthenticatedNavbar({
 
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
-    <header className='sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='container mx-auto max-w-7xl px-2 sm:px-4'>
         {/* Search Overlay for Mobile */}
         {isSearchOpen && (
@@ -136,11 +126,6 @@ export default function AuthenticatedNavbar({
             <div className='relative max-w-2xl mx-auto'>
               <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground' />
               <Input
-                type='text'
-                placeholder='Search blogs...'
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className='rounded-full pl-10'
                 type='text'
                 placeholder='Search blogs...'
                 value={searchTerm}
@@ -249,10 +234,6 @@ export default function AuthenticatedNavbar({
               variant='ghost'
               size='sm'
               className='w-full justify-start text-muted-foreground hover:text-foreground'
-              onClick={() => {
-                setIsNotificationsOpen(true);
-                setIsMenuOpen(false);
-              }}
               onClick={() => {
                 setIsNotificationsOpen(true);
                 setIsMenuOpen(false);
