@@ -169,7 +169,7 @@ export default function Home() {
           </Button>
         </div>
       </motion.section>
-
+  
       <footer className='container px-4 sm:px-6 lg:px-8 py-8 mx-auto text-center text-muted-foreground text-sm'>
         <p>© {currentYear} IG.Blog Manager. All rights reserved.</p>
         <p className='mt-2'>

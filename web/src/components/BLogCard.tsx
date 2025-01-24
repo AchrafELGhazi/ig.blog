@@ -57,17 +57,18 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, index }) => {
               {blog.summary}
             </p>
 
-            {/* Tags */}
             <div className='flex flex-wrap gap-2 mb-4'>
               {blog.tags &&
-                blog.tags[0]?.split(',').map((tag, index) => (
-                  <span
-                    key={index}
-                    className='text-xs bg-primary/10 text-primary px-2 py-1 rounded-full'
-                  >
-                    {tag.trim()}
-                  </span>
-                ))}
+                blog.tags.map(tagGroup =>
+                  tagGroup.split(',').map((tag, index) => (
+                    <span
+                      key={index}
+                      className='text-xs bg-primary/10 text-primary px-2 py-1 rounded-full'
+                    >
+                      {tag.trim()}
+                    </span>
+                  ))
+                )}
             </div>
 
             {/* Interaction Buttons */}

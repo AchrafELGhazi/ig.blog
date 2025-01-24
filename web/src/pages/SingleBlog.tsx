@@ -26,7 +26,7 @@ interface UserContextType {
 const SingleBlog = () => {
   const { id } = useParams<{ id: string }>();
   const [blogInfo, setBlogInfo] = useState<Blog | null>(null);
-  const { userInfo } = useContext(UserContext) as UserContextType;
+  const { userInfo } = useContext(UserContext);
   const [likes, setLikes] = useState<string[]>([]);
   const [likeCount, setLikeCount] = useState<number>(0);
   const navigate = useNavigate();
@@ -124,8 +124,8 @@ const SingleBlog = () => {
         setLikes(data.likes);
         setLikeCount(data.likes.length);
         toast({
-          title: likes.includes(userInfo._id) ? 'Unliked' : 'Liked',
-          description: likes.includes(userInfo._id)
+          title: likes.includes(userInfo.id) ? 'Unliked' : 'Liked',
+          description: likes.includes(userInfo.id)
             ? "You've unliked this blog"
             : "You've liked this blog",
         });
@@ -217,7 +217,7 @@ const SingleBlog = () => {
               <div className='flex items-center space-x-4'>
                 <AnimatePresence mode='wait'>
                   <motion.div
-                    key={likes.includes(userInfo._id) ? 'liked' : 'not-liked'}
+                    key={likes.includes(userInfo.id) ? 'liked' : 'not-liked'}
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.8, opacity: 0 }}
@@ -225,21 +225,21 @@ const SingleBlog = () => {
                   >
                     <Button
                       variant={
-                        likes.includes(userInfo._id) ? 'default' : 'outline'
+                        likes.includes(userInfo.id) ? 'default' : 'outline'
                       }
                       onClick={likeBlog}
                       className={`transition-all duration-300 ${
-                        likes.includes(userInfo._id)
+                        likes.includes(userInfo.id)
                           ? 'bg-blue-500 hover:bg-blue-600 text-white'
                           : 'hover:bg-blue-100'
                       }`}
                     >
                       <ThumbsUp
                         className={`mr-2 h-4 w-4 ${
-                          likes.includes(userInfo._id) ? 'fill-current' : ''
+                          likes.includes(userInfo.id) ? 'fill-current' : ''
                         }`}
                       />
-                      {likes.includes(userInfo._id) ? 'Liked' : 'Like'} (
+                      {likes.includes(userInfo.id) ? 'Liked' : 'Like'} (
                       {likeCount})
                     </Button>
                   </motion.div>
@@ -248,7 +248,7 @@ const SingleBlog = () => {
                   <Share2 className='mr-2 h-4 w-4' /> Share
                 </Button>
               </div>
-              {userInfo._id === blogInfo.author._id && (
+              {userInfo.id === blogInfo.author._id && (
                 <div className='flex items-center space-x-4'>
                   <Button variant='outline' asChild>
                     <Link to={`/Edit/${blogInfo._id}`}>
