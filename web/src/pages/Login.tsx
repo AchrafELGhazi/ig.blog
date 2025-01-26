@@ -17,7 +17,7 @@ const Login = () => {
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoginFailed(false);
     e.preventDefault();
-    const response = await fetch('http://localhost:4000/Login', {
+    const response = await fetch('http://localhost:4000/api/auth/Login', {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },

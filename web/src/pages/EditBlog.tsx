@@ -17,7 +17,7 @@ export function EditBlog() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/Blog/${id}`).then(response => {
+    fetch(`http://localhost:4000/api/Blogs/${id}`).then(response => {
       response.json().then(blogInfo => {
         setTitle(blogInfo.title);
         setContent(blogInfo.content);
@@ -41,7 +41,7 @@ const editBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     updatedData.set('Image', Image);
   }
 
-  const response = await fetch(`http://localhost:4000/editBlog`, {
+  const response = await fetch(`http://localhost:4000/api/Blogs/editBlog`, {
     method: 'PUT',
     credentials: 'include',
     body: updatedData,
