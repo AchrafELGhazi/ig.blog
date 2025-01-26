@@ -12,7 +12,7 @@ const apiRouter = Router();
 apiRouter.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 apiRouter.use(express.json());
 apiRouter.use(cookieParser());
-apiRouter.use('/uploads', express.static(__dirname + '/../uploads'));
+apiRouter.use('/uploads', express.static(__dirname + '/../../uploads'));
 apiRouter.use(bodyParser.json());
 apiRouter.use(bodyParser.urlencoded({ extended: true }));
 

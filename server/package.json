@@ -12,6 +12,6 @@
     "nodemon": "^3.1.9"
   },
   "scripts": {
-    "dev:start": "nodemon app.js"
+    "dev:start": "nodemon src/app.js"
   }
 }
