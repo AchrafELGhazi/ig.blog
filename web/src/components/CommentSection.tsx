@@ -120,7 +120,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ blogId }) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `http://localhost:4000/Blog/getComments/${blogId}`,
+        `http://localhost:4000/api/Blogs/Comments/getComments/${blogId}`,
         {
           credentials: 'include', // Include if you need to send cookies
         }
@@ -149,7 +149,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ blogId }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/Blog/postComment/${blogId}`,
+        `http://localhost:4000/api/Blogs/Comments/postComment/${blogId}`,
         {
           method: 'POST',
           headers: {
@@ -178,7 +178,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ blogId }) => {
   const handleReply = async (commentId: string, content: string) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/Blog/${blogId}/replyComment/${commentId}`,
+        `http://localhost:4000/api/Blogs/Comments/${blogId}/replyComment/${commentId}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -200,7 +200,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ blogId }) => {
   const handleDelete = async (commentId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/Blog/${blogId}/deleteComment/${commentId}`,
+        `http://localhost:4000/api/Blogs/Comments/${blogId}/deleteComment/${commentId}`,
         {
           method: 'DELETE',
           credentials: 'include',

@@ -23,7 +23,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, index }) => {
           {/* Image Section */}
           <div className='sm:w-48 h-48'>
             <img
-              src={`http://localhost:4000/${blog.cover}`}
+              src={`http://localhost:4000/api/${blog.cover}`}
               alt={blog.title}
               className='w-full h-full object-cover'
             />

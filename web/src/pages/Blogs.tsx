@@ -21,7 +21,9 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getBlogs');
+        const response = await fetch(
+          'http://localhost:4000/api/Blogs/getBlogs'
+        );
         if (!response.ok) throw new Error('Network response was not ok');
         const blogsData: Blog[] = await response.json();
         setAllPosts(blogsData);

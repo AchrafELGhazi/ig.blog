@@ -35,7 +35,7 @@ export default function AuthenticatedNavbar({
 
   const logout = async () => {
     try {
-      const response = await fetch('http://localhost:4000/logout', {
+      const response = await fetch('http://localhost:4000/api/auth/logout', {
         credentials: 'include',
         method: 'POST',
       });
@@ -61,7 +61,9 @@ export default function AuthenticatedNavbar({
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getBlogs');
+        const response = await fetch(
+          'http://localhost:4000/api/Blogs/getBlogs'
+        );
         if (!response.ok) throw new Error('Network response was not ok');
         const blogsData: Blog[] = await response.json();
         setAllPosts(blogsData);
@@ -79,9 +81,9 @@ export default function AuthenticatedNavbar({
     fetchBlogs();
   }, [navigate]);
 
-  const filteredPosts = allPosts.filter(blog =>
-    blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredPosts = allPosts.filter(blog =>
+  //   blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>

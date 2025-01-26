@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import type { Blog, User } from '@/utils/types';
+import type { Blog } from '@/utils/types';
 import { UserContext } from '@/utils/UserContext';
 import CommentsSection from '@/components/CommentSection';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
-  Clock,
   Edit,
   Trash2,
   ThumbsUp,
@@ -16,12 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
 import { toast } from '@/components/ui/use-toast';
-
-interface UserContextType {
-  userInfo: User;
-}
 
 const SingleBlog = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,7 +28,7 @@ const SingleBlog = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:4000/Blog/${id}`)
+    fetch(`http://localhost:4000/api/Blogs/${id}`, { method: 'GET' })
       .then(response => response.json())
       .then((data: Blog) => {
         setBlogInfo(data);
@@ -74,7 +68,7 @@ const SingleBlog = () => {
     if (window.confirm('Are you sure you want to delete this blog?')) {
       try {
         const response = await fetch(
-          `http://localhost:4000/Blog/deleteBlog/${id}`,
+          `http://localhost:4000/api/Blogs/deleteBlog/${id}`,
           {
             method: 'DELETE',
             credentials: 'include',
@@ -112,7 +106,7 @@ const SingleBlog = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/Blog/${id}/likeBlog`,
+        `http://localhost:4000/Blogs/${id}/likeBlog`,
         {
           method: 'POST',
           credentials: 'include',
@@ -146,14 +140,6 @@ const SingleBlog = () => {
     }
   };
 
-  const estimateReadingTime = (content: string): number => {
-    const wordsPerMinute = 200;
-    const wordCount = content.split(/\s+/).length;
-    return Math.ceil(wordCount / wordsPerMinute);
-  };
-
-  const readingTime = estimateReadingTime(blogInfo.content);
-
   const shareBlog = () => {
     navigator.clipboard.writeText(window.location.href);
     toast({
@@ -182,7 +168,7 @@ const SingleBlog = () => {
           <div className='relative h-[60vh]'>
             <img
               className='w-full h-full object-cover'
-              src={`http://localhost:4000/${blogInfo.cover}`}
+              src={`http://localhost:4000/api/${blogInfo.cover}`}
               alt={blogInfo.title}
             />
             <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent'></div>
@@ -263,11 +249,6 @@ const SingleBlog = () => {
             </div>
 
             <div className='flex items-center space-x-4 text-muted-foreground mb-6'>
-              {/* <Badge variant='secondary' className='text-sm'>
-                <Clock className='mr-2 h-4 w-4' />
-                {readingTime} min read
-              </Badge> */}
-
               {blogInfo.tags &&
                 blogInfo.tags[0]?.split(',').map((tag, index) => (
                   <span

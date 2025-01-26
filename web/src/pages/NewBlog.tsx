@@ -32,11 +32,14 @@ const NewBlog = () => {
          data.set('tags', tags.join(','));
        }
 
-      const response = await fetch('http://localhost:4000/createPost', {
-        method: 'POST',
-        body: data,
-        credentials: 'include',
-      });
+      const response = await fetch(
+        'http://localhost:4000/api/Blogs/createBlog',
+        {
+          method: 'POST',
+          body: data,
+          credentials: 'include',
+        }
+      );
 
       const responseData = await response.json();
       console.log('rah hia hadi wllah',responseData);

@@ -21,26 +21,28 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  console.log('messi');
 
   const changePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:4000/changePassword`, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify({
-          oldPassword,
-          newPassword,
-          confirmPassword,
-          id: userInfo?.id,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/auth/changePassword`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify({
+            oldPassword,
+            newPassword,
+            confirmPassword,
+            id: userInfo?.id,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response.ok) {
         toast({
