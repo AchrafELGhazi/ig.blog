@@ -93,6 +93,7 @@ const logout = (req, res) => {
 
 const changePassword = async (req, res) => {
   const { oldPassword, newPassword, confirmPassword, id } = req.body;
+  console.log(req.body)
 
   if (!oldPassword || !newPassword || !confirmPassword || !id) {
     return res.status(400).json({ message: 'All fields are required' });

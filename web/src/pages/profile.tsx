@@ -28,7 +28,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/auth/changePassword`,
+        'http://localhost:4000/api/auth/changePassword',
         {
           method: 'POST',
           credentials: 'include',
