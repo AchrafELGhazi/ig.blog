@@ -106,7 +106,7 @@ const SingleBlog = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/Blogs/${id}/likeBlog`,
+        `http://localhost:4000/api/Blogs/${id}/likeBlog`,
         {
           method: 'POST',
           credentials: 'include',
@@ -118,8 +118,8 @@ const SingleBlog = () => {
         setLikes(data.likes);
         setLikeCount(data.likes.length);
         toast({
-          title: likes.includes(userInfo.id) ? 'Unliked' : 'Liked',
-          description: likes.includes(userInfo.id)
+          title: likes.includes(userInfo._id) ? 'Unliked' : 'Liked',
+          description: likes.includes(userInfo._id)
             ? "You've unliked this blog"
             : "You've liked this blog",
         });

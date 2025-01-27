@@ -5,7 +5,7 @@ import { UserContext } from '@/utils/UserContext';
 const ProtectedRoutes = () => {
   const { userInfo } = useContext(UserContext);
 
-  return userInfo.username ? <Outlet /> : <Navigate to='/Login' />;
+  return userInfo && userInfo.username ? <Outlet /> : <Navigate to='/Login' />;
 };
 
 export default ProtectedRoutes;
