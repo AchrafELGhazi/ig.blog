@@ -65,7 +65,7 @@ const Blogs = () => {
         >
           <h1 className='text-2xl font-semibold text-zinc-900 flex items-center gap-2'>
             <span>👋</span>
-            <span>Welcome, {userInfo?.username || 'Guest'}</span>
+            <span>Welcome back, {userInfo?.username || 'Guest'} !</span>
           </h1>
           <p className='text-sm text-zinc-500 mt-1 flex items-center gap-2'>
             <span>✨</span>

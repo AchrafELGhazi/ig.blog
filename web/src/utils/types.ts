@@ -9,8 +9,6 @@ export interface User {
   blogs: string[];
 }
 
-
-
 export interface Reply {
   _id: string;
   user: User;
