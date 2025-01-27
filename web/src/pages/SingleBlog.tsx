@@ -234,7 +234,7 @@ const SingleBlog = () => {
                   <Share2 className='mr-2 h-4 w-4' /> Share
                 </Button>
               </div>
-              {userInfo.id === blogInfo.author._id && (
+              { userInfo.id === blogInfo.author._id && (
                 <div className='flex items-center space-x-4'>
                   <Button variant='outline' asChild>
                     <Link to={`/Edit/${blogInfo._id}`}>
@@ -250,14 +250,16 @@ const SingleBlog = () => {
 
             <div className='flex items-center space-x-4 text-muted-foreground mb-6'>
               {blogInfo.tags &&
-                blogInfo.tags[0]?.split(',').map((tag, index) => (
-                  <span
-                    key={index}
-                    className='text-xs bg-primary/10 text-primary px-2 py-1 rounded-full'
-                  >
-                    {tag.trim()}
-                  </span>
-                ))}
+                blogInfo.tags.map(tagGroup =>
+                  tagGroup.split(',').map((tag, index) => (
+                    <span
+                      key={index}
+                      className='text-xs bg-primary/10 text-primary px-2 py-1 rounded-full'
+                    >
+                      #{tag.trim()}
+                    </span>
+                  ))
+                )}
             </div>
 
             <Separator className='my-6' />
