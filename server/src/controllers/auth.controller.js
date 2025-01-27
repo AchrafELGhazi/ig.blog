@@ -50,7 +50,7 @@ const login = async (req, res) => {
     jwt.sign(
       { username, id: userDoc._id },
       secret,
-      { expiresIn: '24h' }, // Token expires in 24 hours
+      { expiresIn: '24h' },
       (error, token) => {
         if (error) {
           console.error('JWT Error:', error);
@@ -62,7 +62,7 @@ const login = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
-            maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+            maxAge: 24 * 60 * 60 * 1000,
           })
           .json({
             id: userDoc._id,
