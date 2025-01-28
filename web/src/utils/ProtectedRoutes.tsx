@@ -3,7 +3,11 @@ import { useContext } from 'react';
 import { UserContext } from '@/utils/UserContext';
 
 const ProtectedRoutes = () => {
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, isLoading } = useContext(UserContext);
+
+  if (isLoading) {
+    return <div>Loading...</div>; 
+  }
 
   return userInfo && userInfo.username ? <Outlet /> : <Navigate to='/Login' />;
 };
