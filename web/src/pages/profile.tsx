@@ -36,7 +36,7 @@ const Profile = () => {
             oldPassword,
             newPassword,
             confirmPassword,
-            id: userInfo?.id,
+            id: userInfo?._id,
           }),
           headers: {
             'Content-Type': 'application/json',

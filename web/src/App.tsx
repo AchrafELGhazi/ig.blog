@@ -6,12 +6,13 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import { UserContextProvider } from './utils/UserContext';
-import Profile from './pages/Profile';
 import SingleBlog from './pages/SingleBlog';
 import { EditBlog } from './pages/EditBlog';
 import NewBlog from './pages/NewBlog';
 import ProtectedRoutes from './utils/ProtectedRoutes';
 import Explore from './pages/Explore';
+import Profile from './pages/profile';
+
 
 function App() {
   return (

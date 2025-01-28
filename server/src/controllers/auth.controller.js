@@ -93,7 +93,7 @@ const logout = (req, res) => {
 
 const changePassword = async (req, res) => {
   const { oldPassword, newPassword, confirmPassword, id } = req.body;
-  console.log(req.body)
+  console.log(req.body);
 
   if (!oldPassword || !newPassword || !confirmPassword || !id) {
     return res.status(400).json({ message: 'All fields are required' });
@@ -124,9 +124,38 @@ const changePassword = async (req, res) => {
   }
 };
 
+const verifyToken = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    console.log('Received token:', token); // Debug token
+
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded token:', decoded);
+
+    const user = await User.findById(decoded.id);
+    console.log('Found user:', user);
+    
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    // Don't send password in response
+    const { password, ...userWithoutPassword } = user.toObject();
+    res.json(userWithoutPassword);
+  } catch (error) {
+    console.error('Verification error:', error); // Debug error
+    res.status(401).json({ message: 'Invalid token' });
+  }
+};
+
 module.exports = {
   register,
   login,
   logout,
   changePassword,
+  verifyToken,
 };
