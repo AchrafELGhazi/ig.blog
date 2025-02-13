@@ -75,22 +75,6 @@ A modern blog application built with the MERN stack (MongoDB, Express.js, React,
 - `src/components/Navbar.tsx` - Navigation component
 - `src/pages/` - Page components (Register, Profile, etc.)
 
-## 🔌 API Endpoints
-
-### Authentication
-- `POST /register` - Register a new user
-- `POST /login` - Log in a user
-- `POST /logout` - Log out a user
-
-### Blog Operations
-- `GET /blogs/create` - Get blog creation form
-- `GET /blogs` - Get all blogs
-- `POST /blogs` - Create a new blog
-- `GET /blogs/:id` - Get specific blog details
-- `DELETE /blogs/:id` - Delete a blog
-
-### Middleware
-- `verifyToken` - JWT authentication middleware for protected routes
 
 ## 🔐 Security
 
